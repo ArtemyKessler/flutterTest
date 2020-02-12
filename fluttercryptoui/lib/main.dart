@@ -348,70 +348,82 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _table() {
     return(
-      ListView(
-        children: <Widget>[
-          Text("DGFDSGSDFGSGD"),
-        ],
+      Table(
+        defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
+        border: TableBorder(
+          horizontalInside: BorderSide(color: Colors.black, width: 1)
+        ),
+        children: _rows(),
       )
     );
   }
 
-  List<ListTile> _rows() {
+  List<TableRow> _rows() {
     TextStyle orangeStyle = TextStyle(color: Colors.orange);
-    List<ListTile> finalRows = new List<ListTile>();
-    ListTile initialRow = ListTile(
-      leading:  Text('Symbol', style: orangeStyle),
-      title:  Text('Bid', style: orangeStyle),
-      trailing:  Text('Ask', style: orangeStyle),
+    List<TableRow> finalRows = new List<TableRow>();
+    TableRow initialRow = TableRow(
+      children: <Widget>[
+        Center(
+          child: Text('Symbol', style: orangeStyle),
+        ),
+        Center(
+          child: Text('Bid', style: orangeStyle),
+        ),
+        Center(
+          child: Text('Ask', style: orangeStyle),
+        ),
+      ]
     );
-    // var rows = drawerBids.map((Bid bid) {
-    //   return ListTile(
-    //     leading:  Center(
-    //         child: Row(
-    //           mainAxisAlignment: MainAxisAlignment.start,
-    //           children: <Widget>[
-    //             Container(
-    //               width: 20,
-    //               child: IconButton(
-    //                 padding: EdgeInsets.zero,
-    //                 icon: Icon(Icons.star, color: Colors.white, size: 14,), 
-    //                 onPressed: () {
-    //                   // TODO implement callback
-    //                   print("press drawer star");
-    //                 }
-    //               ),
-    //             ),
-    //             Icon(
-    //               bid.up ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
-    //               color: bid.up ? Colors.greenAccent : Colors.red,
-    //             ),
-    //             Text(bid.symbol, style: TextStyle(color: Colors.white, fontSize: 12),)
-    //           ],
-    //         ),
-    //     ),
-    //     title: Center(
-    //       child: Text(bid.bid.toString(), style: TextStyle(color: Colors.white)),
-    //     ),
-    //     trailing: Center(
-    //         child: Row(
-    //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //           children: <Widget>[
-    //             Text(bid.ask.toString(), style: TextStyle(color: Colors.white),),
-    //             IconButton(
-    //               icon: Icon(Icons.arrow_right, color: Colors.white,), 
-    //               onPressed: (){
-    //                 // TODO implement callback
-    //                 print('press drawer list arrow');
-    //               }
-    //             )
-    //           ],
-    //         )
-    //       ),
-    //   );
-    // });
+    var rows = drawerBids.map((Bid bid) {
+      return TableRow(
+        children: <Widget>[
+          Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  width: 20,
+                  child: IconButton(
+                    padding: EdgeInsets.zero,
+                    icon: Icon(Icons.star, color: Colors.white, size: 14,), 
+                    onPressed: () {
+                      // TODO implement callback
+                      print("press drawer star");
+                    }
+                  ),
+                ),
+                Icon(
+                  bid.up ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                  color: bid.up ? Colors.greenAccent : Colors.red,
+                ),
+                Text(bid.symbol, style: TextStyle(color: Colors.white, fontSize: 12),)
+              ],
+            ),
+          ),
+          Center(
+            child: Text(bid.bid.toString(), style: TextStyle(color: Colors.white)),
+          ),
+          Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(bid.ask.toString(), style: TextStyle(color: Colors.white),),
+                IconButton(
+                  icon: Icon(Icons.arrow_right, color: Colors.white,), 
+                  onPressed: (){
+                    // TODO implement callback
+                    print('press drawer list arrow');
+                  }
+                )
+              ],
+            )
+          )
+        ]
+      );
+    });
     finalRows.add(initialRow);
-    // rows.toList();
-    // finalRows.addAll(rows);
+    rows.toList();
+    finalRows.addAll(rows);
     finalRows.toList();
     return finalRows;
   }
