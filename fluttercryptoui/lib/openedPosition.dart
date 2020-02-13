@@ -1,4 +1,4 @@
-class GraphicType {
+class OpenedPosition {
   String id;
   String symbol;
   String type;
@@ -11,8 +11,19 @@ class GraphicType {
   String swap;
   String contract;
   String currentRate;
-  
 
-
-  GraphicType({this.id, this.symbol,this.type,this.size,this.openRate,this.openTime,this.stopLoss, this.takeProfit, this.profit, this.swap, this.contract,this.currentRate,});
+  OpenedPosition({
+    this.id,
+    this.symbol,
+    this.type,
+    this.size,
+    this.openRate,
+    this.openTime,
+    this.stopLoss,
+    this.takeProfit,
+    this.profit,
+    this.swap,
+    this.contract,
+    this.currentRate,
+  });
 }

@@ -3,10 +3,12 @@ import 'package:flutter_candlesticks/flutter_candlesticks.dart';
 import 'package:fluttercryptoui/bid.dart';
 import 'package:fluttercryptoui/cityTime.dart';
 import 'package:fluttercryptoui/filter.dart';
+import 'package:fluttercryptoui/footerData.dart';
 import 'package:fluttercryptoui/graphicType.dart';
 import 'package:fluttercryptoui/language.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:bidirectional_scroll_view/bidirectional_scroll_view.dart';
+import 'package:fluttercryptoui/openedPosition.dart';
 
 void main() => runApp(MyApp());
 
@@ -20,9 +22,209 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.blueGrey[800],
         cardColor: Colors.blueGrey[600],
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(
+          title:
+              'Flutter Demo Home Page') /* MyLoginPage(
+        title: 'login',
+      ) */
+      ,
     );
   }
+}
+
+class MyLoginPage extends StatefulWidget {
+  MyLoginPage({Key key, this.title}) : super(key: key);
+
+  final String title;
+
+  @override
+  _MyLoginPageState createState() => _MyLoginPageState();
+}
+
+class _MyLoginPageState extends State<MyLoginPage> {
+  bool isRemember = false;
+
+  @override
+  Widget build(BuildContext context) {
+    Color backColor = Color.fromRGBO(17, 20, 30, 1);
+    Color fontColor = Color.fromRGBO(249, 122, 5, 1);
+    return Scaffold(
+      appBar: _loginAppBar(),
+      body: Container(
+        color: backColor,
+        child: Center(
+          child: ListView(
+            children: <Widget>[
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    "Login",
+                    style: TextStyle(color: fontColor, fontSize: 50),
+                  ),
+                  _loginInputs(),
+                  _loginButtons()
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _loginAppBar() {
+    Color backColor = Color.fromRGBO(17, 20, 30, 1);
+    return AppBar(
+      backgroundColor: backColor,
+      title:
+          Image.asset('images/logo.png', height: 50.0, fit: BoxFit.scaleDown),
+    );
+  }
+
+  Widget _loginInputs() {
+    return Container(
+      margin: EdgeInsets.only(top: 30.0),
+      child: Column(
+        children: <Widget>[
+          Container(
+            child: Text("E-Mail Address",
+                style: TextStyle(color: Colors.white, fontSize: 16)),
+          ),
+          _loginTextInput("email"),
+          Container(
+            margin: EdgeInsets.only(top: 20.0),
+            child: Text("Password",
+                style: TextStyle(color: Colors.white, fontSize: 16)),
+          ),
+          _loginTextInput("password"),
+        ],
+      ),
+    );
+  }
+
+  Widget _loginButtons() {
+    return Container(
+      margin: EdgeInsets.only(top: 20),
+      child: Column(
+        children: <Widget>[
+          _loginButton(),
+          _loginSecondaryButtons(),
+          _loginRegistryRef()
+        ],
+      ),
+    );
+  }
+
+  Widget _loginButton() {
+    Color fontColor = Color.fromRGBO(249, 122, 5, 1);
+    return Container(
+      decoration: BoxDecoration(border: Border.all(width: 1, color: fontColor)),
+      child: FlatButton(
+        padding: EdgeInsets.zero,
+        child: Text(
+          "Login",
+          style: TextStyle(color: fontColor, fontSize: 20),
+        ),
+        onPressed: () {
+          // TODO implement callback
+          print("press login");
+        },
+      ),
+    );
+  }
+
+  Widget _loginSecondaryButtons() {
+    return Container(
+      margin: EdgeInsets.only(top: 10.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(
+                  width: 20,
+                  height: 20,
+                  color: Colors.white,
+                  child: Checkbox(
+                      materialTapTargetSize: MaterialTapTargetSize.padded,
+                      value: isRemember,
+                      onChanged: (bool newIsRemember) {
+                        // TODO implement callback
+                        print("press remember checkbox");
+                        setState(() {
+                          isRemember = newIsRemember;
+                        });
+                      })),
+              Container(
+                  margin: EdgeInsets.only(left: 4.0),
+                  child: Text(
+                    "Remember me",
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  )),
+              Container(
+                  margin: EdgeInsets.only(left: 20.0),
+                  child: FlatButton(
+                    padding: EdgeInsets.zero,
+                    child: Text(
+                      "Forgot password?",
+                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    ),
+                    onPressed: () {
+                      // TODO implement callback
+                      print("press forgot password");
+                    },
+                  )),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}
+
+Widget _loginTextInput(String field) {
+  return Container(
+    width: 200.0,
+    padding: EdgeInsets.all(5.0),
+    decoration: BoxDecoration(
+        border: Border(bottom: BorderSide(color: Colors.white, width: 1))),
+    child: TextField(
+      onChanged: (String text) {
+        print("change $field input");
+      },
+      style: TextStyle(color: Colors.white),
+    ),
+  );
+}
+
+Widget _loginRegistryRef() {
+  return Container(
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Container(
+            child: Text(
+          'Are you new here?',
+          style: TextStyle(color: Colors.grey[300]),
+        )),
+        Container(
+          margin: EdgeInsets.only(left: 10.0),
+          child: FlatButton(
+            padding: EdgeInsets.zero,
+            child: Text(
+              "Create account",
+              style: TextStyle(color: Colors.blue),
+            ),
+            onPressed: () {
+              // TODO implement callback
+              print("press logo ref");
+            },
+          ),
+        )
+      ],
+    ),
+  );
 }
 
 class MyHomePage extends StatefulWidget {
@@ -97,13 +299,38 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   List<GraphicType> graphicTypes = [
-    GraphicType(name: "candle", icon: Icon(FontAwesome.bar_chart, color: Colors.white, size: 12, )),
-    GraphicType(name: "stroke", icon: Icon(MaterialCommunityIcons.chart_bar, color: Colors.white,size: 12,)),
-    GraphicType(name: "line", icon: Icon(FontAwesome.line_chart, color: Colors.white,size: 12,)),
-    GraphicType(name: "area", icon: Icon(FontAwesome.area_chart, color: Colors.white,size: 12,)),
+    GraphicType(
+        name: "candle",
+        icon: Icon(
+          FontAwesome.bar_chart,
+          color: Colors.white,
+          size: 12,
+        )),
+    GraphicType(
+        name: "stroke",
+        icon: Icon(
+          MaterialCommunityIcons.chart_bar,
+          color: Colors.white,
+          size: 12,
+        )),
+    GraphicType(
+        name: "line",
+        icon: Icon(
+          FontAwesome.line_chart,
+          color: Colors.white,
+          size: 12,
+        )),
+    GraphicType(
+        name: "area",
+        icon: Icon(
+          FontAwesome.area_chart,
+          color: Colors.white,
+          size: 12,
+        )),
   ];
 
-  GraphicType pickedType = GraphicType(name: "candle", icon: Icon(FontAwesome.bar_chart));
+  GraphicType pickedType =
+      GraphicType(name: "candle", icon: Icon(FontAwesome.bar_chart));
   String pickedTimeBoundary = '1m';
 
   List<Filter> filterOptions = [
@@ -127,6 +354,60 @@ class _MyHomePageState extends State<MyHomePage> {
   String pickedPairSymbol = "EURUSD";
   bool isReal = false;
   String pickedPositionAndOrderMode = "Opened positions";
+  List<OpenedPosition> openedPositionRows = [
+    OpenedPosition(
+        id: "2",
+        symbol: "JIJA",
+        type: "QU",
+        size: "120",
+        openRate: "300",
+        openTime: "740",
+        stopLoss: "10",
+        takeProfit: "1200",
+        profit: "1705",
+        swap: "1200",
+        contract: "200",
+        currentRate: "300"),
+    OpenedPosition(
+        id: "4",
+        symbol: "JUJA",
+        type: "QU",
+        size: "120",
+        openRate: "300",
+        openTime: "740",
+        stopLoss: "10",
+        takeProfit: "1200",
+        profit: "1705",
+        swap: "1200",
+        contract: "200",
+        currentRate: "300"),
+    OpenedPosition(
+        id: "122",
+        symbol: "QOQOQU",
+        type: "QU",
+        size: "120",
+        openRate: "300",
+        openTime: "740",
+        stopLoss: "10",
+        takeProfit: "1200",
+        profit: "1705",
+        swap: "1200",
+        contract: "200",
+        currentRate: "300"),
+    OpenedPosition(
+        id: "3",
+        symbol: "ZUZUZ",
+        type: "QU",
+        size: "120",
+        openRate: "300",
+        openTime: "740",
+        stopLoss: "10",
+        takeProfit: "1200",
+        profit: "1705",
+        swap: "1200",
+        contract: "200",
+        currentRate: "300"),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -253,8 +534,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       Container(
                         padding: EdgeInsets.only(left: 10.0),
                         child: Text(option.name,
-                          style: TextStyle(color: Colors.white, fontSize: 14 )
-                        ),
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 14)),
                       )
                     ],
                   ),
@@ -278,6 +559,10 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 // TODO implement callback
                 print("press exit");
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyLoginPage()),
+                );
               }),
         )
       ],
@@ -358,9 +643,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   }).toList();
                 },
               ),
-              Expanded(
-                child: _search()
-              )
+              Expanded(child: _search())
             ],
           ),
           Row(
@@ -370,39 +653,38 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Container(
                   height: 30,
                   child: FlatButton(
-                    color: drawerIntrumentsPicked
-                        ? Colors.brown[300]
-                        : Colors.transparent,
-                    onPressed: () {
-                      // TODO implement callback
-                      print("press intruments");
-                      setState(() {
-                        drawerIntrumentsPicked = true;
-                      });
-                    },
-                    child: Text(
-                      "Instruments",
-                      style: TextStyle(color: Colors.white),
-                    )),
+                      color: drawerIntrumentsPicked
+                          ? Colors.brown[300]
+                          : Colors.transparent,
+                      onPressed: () {
+                        // TODO implement callback
+                        print("press intruments");
+                        setState(() {
+                          drawerIntrumentsPicked = true;
+                        });
+                      },
+                      child: Text(
+                        "Instruments",
+                        style: TextStyle(color: Colors.white),
+                      )),
                 ),
               ),
               Expanded(
                 child: Container(
                   height: 30,
                   child: FlatButton(
-                    color: drawerIntrumentsPicked
-                        ? Colors.transparent
-                        : Colors.brown[300],
-                    onPressed: () {
-                      // TODO implement callback
-                      print("press favorites");
-                      setState(() {
-                        drawerIntrumentsPicked = false;
-                      });
-                    },
-                    child:
-                      Text("Favorites", style: TextStyle(color: Colors.white))
-                  ),
+                      color: drawerIntrumentsPicked
+                          ? Colors.transparent
+                          : Colors.brown[300],
+                      onPressed: () {
+                        // TODO implement callback
+                        print("press favorites");
+                        setState(() {
+                          drawerIntrumentsPicked = false;
+                        });
+                      },
+                      child: Text("Favorites",
+                          style: TextStyle(color: Colors.white))),
                 ),
               )
             ],
@@ -538,77 +820,80 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _body() {
-    const darkPurple = Color.fromRGBO( 33,31,46, 1);
-    return Column(
-      children: <Widget>[
-        _cityList(),
-        _graphicList(),
-        _info(),
-        _chart(),
-        _positionsAndOrders(),
-        _searchAndSwitch(),
-        _orderTable()
-      ],
+    const darkPurple = Color.fromRGBO(33, 31, 46, 1);
+    return Container(
+      color: Colors.grey[600],
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          _cityList(),
+          _graphicList(),
+          _info(),
+          _chart(),
+          _positionsAndOrders(),
+          _searchAndSwitch(),
+          _orderTable(),
+          _footer()
+        ],
+      ),
     );
   }
 
-  Widget _cityList(){
+  Widget _cityList() {
     return Container(
-      height: 18,
-      color: Colors.grey[800],
-      child: Row(
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.only(left: 4.0),
-            child: Row(
-              children: <Widget>[
-                Icon(
-                  Icons.people_outline,
-                  color: Colors.green,
-                  size: 14,
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 2.0),
-                  child: Text(
-                    peopleOnline.toString(),
-                    style: TextStyle(color: Colors.green, fontSize: 10),
+        height: 18,
+        color: Colors.grey[800],
+        child: Row(
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(left: 4.0),
+              child: Row(
+                children: <Widget>[
+                  Icon(
+                    Icons.people_outline,
+                    color: Colors.green,
+                    size: 14,
                   ),
-                )
-              ],
+                  Container(
+                    margin: EdgeInsets.only(left: 2.0),
+                    child: Text(
+                      peopleOnline.toString(),
+                      style: TextStyle(color: Colors.green, fontSize: 10),
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-          Expanded(
-              child: Container(
-            margin: EdgeInsets.only(left: 4.0),
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: _cities(),
-            ),
-          ))
-        ],
-      )
-    );
+            Expanded(
+                child: Container(
+              margin: EdgeInsets.only(left: 4.0),
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: _cities(),
+              ),
+            ))
+          ],
+        ));
   }
 
   Widget _graphicList() {
-    const darkPurple = Color.fromRGBO( 33,31,46, 1);
+    const darkPurple = Color.fromRGBO(33, 31, 46, 1);
     return Container(
-      color: darkPurple,
-      padding: EdgeInsets.only(bottom: 2.0, top: 2.0),
-      height: 30,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              _graphicTypes(),
-              _timeBoundaries(),
-              _graphicDropdown()
-            ],
-          )
-        ],
-      )
-    );
+        color: darkPurple,
+        padding: EdgeInsets.only(bottom: 2.0, top: 2.0),
+        height: 30,
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                _graphicTypes(),
+                _timeBoundaries(),
+                _graphicDropdown()
+              ],
+            )
+          ],
+        ));
   }
 
   List<Widget> _cities() {
@@ -631,22 +916,22 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  Widget _graphicTypes(){
-    List<Widget> types = graphicTypes.map((GraphicType type){
+  Widget _graphicTypes() {
+    List<Widget> types = graphicTypes.map((GraphicType type) {
       return Container(
-        color: type.name == pickedType.name ? Colors.green : Colors.blueGrey[600] ,
+        color:
+            type.name == pickedType.name ? Colors.green : Colors.blueGrey[600],
         // padding: EdgeInsets.all(4.0),
         width: 30,
         child: IconButton(
-          icon: type.icon, 
-          onPressed: () {
-            // TODO press change graphic type
-            print(type.name);
-            setState(() {
-              pickedType = type;
-            });
-          }
-        ),
+            icon: type.icon,
+            onPressed: () {
+              // TODO press change graphic type
+              print(type.name);
+              setState(() {
+                pickedType = type;
+              });
+            }),
       );
     }).toList();
     return Container(
@@ -657,30 +942,44 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _timeBoundaries() {
-    List<String> timeBoundaries = ['1m', '5m', '15m', '30m', '1h', '1d', '5d', '1M', '3M', '6M', '1Y'];
-    var boundaries = timeBoundaries.map((String boundary){
+    List<String> timeBoundaries = [
+      '1m',
+      '5m',
+      '15m',
+      '30m',
+      '1h',
+      '1d',
+      '5d',
+      '1M',
+      '3M',
+      '6M',
+      '1Y'
+    ];
+    var boundaries = timeBoundaries.map((String boundary) {
       return Container(
-        color: boundary == pickedTimeBoundary ? Colors.green : Colors.blueGrey[600] ,
+        color: boundary == pickedTimeBoundary
+            ? Colors.green
+            : Colors.blueGrey[600],
         width: 25,
         // padding: EdgeInsets.all(4.0),
         child: FlatButton(
-          padding: EdgeInsets.zero,
-          child: Text(boundary, style: TextStyle(color: Colors.white, fontSize: 10),),
-          onPressed: () {
-            // TODO press change graphic type
-            print(boundary);
-            setState(() {
-              pickedTimeBoundary = boundary;
-            });
-          }
-        ),
+            padding: EdgeInsets.zero,
+            child: Text(
+              boundary,
+              style: TextStyle(color: Colors.white, fontSize: 10),
+            ),
+            onPressed: () {
+              // TODO press change graphic type
+              print(boundary);
+              setState(() {
+                pickedTimeBoundary = boundary;
+              });
+            }),
       );
     }).toList();
     return Container(
       decoration: BoxDecoration(
-        border: Border(
-          left: BorderSide(width: 0.5, color: Colors.white)
-        ),
+        border: Border(left: BorderSide(width: 0.5, color: Colors.white)),
       ),
       child: Row(
         children: boundaries,
@@ -688,14 +987,18 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget _graphicDropdown(){
+  Widget _graphicDropdown() {
     return Container(
-      margin: EdgeInsets.only(left : 4.0),
+      margin: EdgeInsets.only(left: 4.0),
       child: PopupMenuButton<String>(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Icon(Icons.multiline_chart, color: Colors.white, size: 18,),
+            Icon(
+              Icons.multiline_chart,
+              color: Colors.white,
+              size: 18,
+            ),
             Icon(Icons.arrow_drop_down, color: Colors.yellow, size: 18)
           ],
         ),
@@ -711,17 +1014,16 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(option.name, style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 12
-                  ),),
+                  Text(
+                    option.name,
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  ),
                   Switch(
-                    value: option.isOn, 
-                    onChanged: (bool newIsOn){
-                      // TODO implement callback
-                      print("press switch");
-                    }
-                  )
+                      value: option.isOn,
+                      onChanged: (bool newIsOn) {
+                        // TODO implement callback
+                        print("press switch");
+                      })
                 ],
               ),
             );
@@ -729,12 +1031,14 @@ class _MyHomePageState extends State<MyHomePage> {
           Widget button = PopupMenuItem<String>(
             value: "deleteAll",
             child: FlatButton(
-              onPressed: () {
-                // TODO implement callback
-                print("On delete all press");
-              }, 
-              child: Text("Delete All", style: TextStyle(color : Colors.white),)
-            ),
+                onPressed: () {
+                  // TODO implement callback
+                  print("On delete all press");
+                },
+                child: Text(
+                  "Delete All",
+                  style: TextStyle(color: Colors.white),
+                )),
           );
           listWithButton.addAll(filters);
           listWithButton.add(button);
@@ -744,7 +1048,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget _info(){
+  Widget _info() {
     DateTime now = DateTime.now();
     String year = now.year.toString();
     String month = now.month.toString();
@@ -760,15 +1064,24 @@ class _MyHomePageState extends State<MyHomePage> {
         children: <Widget>[
           Container(
             margin: EdgeInsets.only(left: 4.0),
-            child: Text(dateString, style: TextStyle(color: Colors.green, fontSize: 10),),
+            child: Text(
+              dateString,
+              style: TextStyle(color: Colors.green, fontSize: 10),
+            ),
           ),
           Container(
             margin: EdgeInsets.only(left: 4.0),
-            child: Text(timeZone, style: TextStyle(color: Colors.white, fontSize: 10),),
+            child: Text(
+              timeZone,
+              style: TextStyle(color: Colors.white, fontSize: 10),
+            ),
           ),
           Container(
             margin: EdgeInsets.only(left: 4.0),
-            child: Text(pickedPairSymbol, style: TextStyle(color: Colors.white, fontSize: 10),),
+            child: Text(
+              pickedPairSymbol,
+              style: TextStyle(color: Colors.white, fontSize: 10),
+            ),
           )
         ],
       ),
@@ -777,37 +1090,68 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _chart() {
     List sampleData = [
-      {"open":50.0, "high":100.0, "low":40.0, "close":80, "volumeto":5000.0},
-      {"open":80.0, "high":90.0, "low":55.0, "close":65, "volumeto":4000.0},
-      {"open":65.0, "high":120.0, "low":60.0, "close":90, "volumeto":7000.0},
-      {"open":90.0, "high":95.0, "low":85.0, "close":80, "volumeto":2000.0},
-      {"open":80.0, "high":85.0, "low":40.0, "close":50, "volumeto":3000.0},
+      {
+        "open": 50.0,
+        "high": 100.0,
+        "low": 40.0,
+        "close": 80,
+        "volumeto": 5000.0
+      },
+      {
+        "open": 80.0,
+        "high": 90.0,
+        "low": 55.0,
+        "close": 65,
+        "volumeto": 4000.0
+      },
+      {
+        "open": 65.0,
+        "high": 120.0,
+        "low": 60.0,
+        "close": 90,
+        "volumeto": 7000.0
+      },
+      {
+        "open": 90.0,
+        "high": 95.0,
+        "low": 85.0,
+        "close": 80,
+        "volumeto": 2000.0
+      },
+      {
+        "open": 80.0,
+        "high": 85.0,
+        "low": 40.0,
+        "close": 50,
+        "volumeto": 3000.0
+      },
     ];
     double windowHeight = MediaQuery.of(context).size.height;
     return Container(
       // margin: EdgeInsets.only(top : 4.0),
       color: Colors.grey[900],
-      height: windowHeight * 0.4,
+      height: windowHeight * 0.44,
       child: OHLCVGraph(
-        data: sampleData,
-        enableGridLines: true,
-        volumeProp: 0.2,
-        gridLineAmount: 5,
-        gridLineColor: Colors.grey[300],
-        gridLineLabelColor: Colors.grey
-      ),
+          data: sampleData,
+          enableGridLines: true,
+          volumeProp: 0.2,
+          gridLineAmount: 5,
+          gridLineColor: Colors.grey[300],
+          gridLineLabelColor: Colors.grey),
     );
   }
 
   Widget _positionsAndOrders() {
-    List<String> options = ['Opened positions', 'Closed positions', 'Pending orders'];
+    List<String> options = [
+      'Opened positions',
+      'Closed positions',
+      'Pending orders'
+    ];
     return Container(
       height: 25,
       decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(color: Colors.white, width: 0.5)
-        ),
-        color:  Colors.grey[800],
+        border: Border(bottom: BorderSide(color: Colors.white, width: 0.5)),
+        color: Colors.grey[800],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -822,22 +1166,25 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   List<Widget> _positionAndOrderOptions(List<String> options) {
-    return options.map((String option){
+    return options.map((String option) {
       return Container(
-        color: pickedPositionAndOrderMode == option ? Colors.grey[500] : Colors.transparent,
-        width: 70,
-        padding: EdgeInsets.zero,
-        child: FlatButton(
+          color: pickedPositionAndOrderMode == option
+              ? Colors.grey[500]
+              : Colors.transparent,
+          width: 70,
           padding: EdgeInsets.zero,
-          onPressed: () {
-            print("press $option");
-            setState(() {
-              pickedPositionAndOrderMode = option;
-            });
-          }, 
-          child: Text(option, style: TextStyle(color: Colors.grey[200], fontSize: 8),)
-        )
-      );
+          child: FlatButton(
+              padding: EdgeInsets.zero,
+              onPressed: () {
+                print("press $option");
+                setState(() {
+                  pickedPositionAndOrderMode = option;
+                });
+              },
+              child: Text(
+                option,
+                style: TextStyle(color: Colors.grey[200], fontSize: 8),
+              )));
     }).toList();
   }
 
@@ -846,25 +1193,29 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Row(
         children: <Widget>[
           Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey[300])
+            decoration:
+                BoxDecoration(border: Border.all(color: Colors.grey[300])),
+            child: Text(
+              pickedPairSymbol,
+              style: TextStyle(color: Colors.grey[300], fontSize: 10),
             ),
-            child: Text(pickedPairSymbol, style: TextStyle(color: Colors.grey[300], fontSize: 10), ),
           ),
           Container(
             height: 16,
-            margin: EdgeInsets.only(left: 2.0, right : 2.0),
+            margin: EdgeInsets.only(left: 2.0, right: 2.0),
             decoration: BoxDecoration(
               color: Colors.green,
             ),
             child: FlatButton(
-              padding: EdgeInsets.zero,
-              onPressed: () {
-                //TODO implement callback
-                print("press Create order");
-              }, 
-              child: Text("Create order", style: TextStyle(color: Colors.white, fontSize: 10), )
-            ),
+                padding: EdgeInsets.zero,
+                onPressed: () {
+                  //TODO implement callback
+                  print("press Create order");
+                },
+                child: Text(
+                  "Create order",
+                  style: TextStyle(color: Colors.white, fontSize: 10),
+                )),
           ),
         ],
       ),
@@ -879,11 +1230,10 @@ class _MyHomePageState extends State<MyHomePage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Container(
-            width: 100,
-            height: 25,
-            margin: EdgeInsets.only(right: 4.0, left: 4.0),
-            child: _search()
-          ),
+              width: 100,
+              height: 25,
+              margin: EdgeInsets.only(right: 4.0, left: 4.0),
+              child: _search()),
           Container(
             margin: EdgeInsets.only(right: 4.0, left: 4.0),
             child: _switch(),
@@ -902,8 +1252,7 @@ class _MyHomePageState extends State<MyHomePage> {
       decoration: InputDecoration(
         suffixIcon: Icon(Icons.search, color: Colors.white),
         enabledBorder: const OutlineInputBorder(
-          borderSide:
-              const BorderSide(color: Colors.grey, width: 0.0),
+          borderSide: const BorderSide(color: Colors.grey, width: 0.0),
         ),
       ),
     );
@@ -913,17 +1262,26 @@ class _MyHomePageState extends State<MyHomePage> {
     return Container(
       child: Row(
         children: <Widget>[
-          Text("Demo", style: TextStyle(color: isReal ? Colors.white : Colors.yellow, fontSize: 10),),
-          Switch(
-            value: false, 
-            onChanged: (bool newIsReal) {
-              print(isReal.toString());
-              setState(() {
-                isReal = !isReal;
-              });
-            }
+          Text(
+            "Demo",
+            style: TextStyle(
+                color: isReal ? Colors.white : Colors.yellow, fontSize: 10),
           ),
-          Text("Real", style: TextStyle(color: isReal ? Colors.yellow : Colors.white, fontSize: 10),),
+          Container(
+            child: Checkbox(
+                value: isReal,
+                onChanged: (bool newIsReal) {
+                  print(isReal.toString());
+                  setState(() {
+                    isReal = !isReal;
+                  });
+                }),
+          ),
+          Text(
+            "Real",
+            style: TextStyle(
+                color: isReal ? Colors.yellow : Colors.white, fontSize: 10),
+          ),
         ],
       ),
     );
@@ -931,49 +1289,164 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _orderTable() {
     return Container(
-      height: 100,
-      child: BidirectionalScrollViewPlugin(
-        child: _orderTableRows(),
-      )
+        height: 130,
+        child: BidirectionalScrollViewPlugin(
+          child: _orderTableRows(),
+        ));
+  }
+
+  Widget _orderTableRows() {
+    return Container(
+      child: Column(
+        children: <Widget>[_orderTableInitRow(), openedPositionTableRows()],
+      ),
     );
   }
 
-  Widget _orderTableRows(){
+  Widget _orderTableInitRow() {
+    List<String> initRowCells = [
+      'ID',
+      'Symbol',
+      'Type',
+      'Size',
+      'Open rate',
+      'Open time',
+      'Stop loss',
+      'Take profit',
+      'Profit',
+      'Swap',
+      'Contract',
+      'Current rate',
+      'Actions'
+    ];
+    List<Widget> cells = initRowCells.map((String name) {
+      return _initRowCell(name);
+    }).toList();
+    return Container(
+        color: Colors.grey[700],
+        child: Row(
+          children: cells,
+        ));
+  }
+
+  Widget _initRowCell(String name) {
+    return Container(
+        width: 70,
+        height: 20,
+        decoration: BoxDecoration(
+            border: Border(right: BorderSide(color: Colors.black, width: 0.5))),
+        padding: EdgeInsets.all(4.0),
+        child: Text(
+          name,
+          style: TextStyle(color: Colors.white, fontSize: 10),
+        ));
+  }
+
+  Widget openedPositionTableRows() {
+    List<Widget> rows = openedPositionRows.map((OpenedPosition position) {
+      return Container(
+        height: 20,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            _orderTableCell(position.id),
+            _orderTableCell(position.symbol),
+            _orderTableCell(position.type),
+            _orderTableCell(position.size),
+            _orderTableCell(position.openRate),
+            _orderTableCell(position.openTime),
+            _orderTableCell(position.stopLoss),
+            _orderTableCell(position.takeProfit),
+            _orderTableCell(position.profit),
+            _orderTableCell(position.swap),
+            _orderTableCell(position.contract),
+            _orderTableCell(position.currentRate),
+            _actions()
+          ],
+        ),
+      );
+    }).toList();
     return Container(
       child: Column(
+        children: rows,
+      ),
+    );
+  }
+
+  Widget _orderTableCell(String value) {
+    return Container(
+      width: 70,
+      height: 30,
+      padding: EdgeInsets.only(left: 4.0),
+      child: Center(
+        child: Text(
+          value,
+          style: TextStyle(fontSize: 10, color: Colors.white),
+        ),
+      ),
+    );
+  }
+
+  Widget _actions() {
+    return Container(
+      width: 70,
+      child: Row(
         children: <Widget>[
-          _orderTableInitRow()
+          Container(
+            width: 25,
+            child: FlatButton(
+              padding: EdgeInsets.zero,
+              child: Text(
+                "Edit",
+                style: TextStyle(fontSize: 8, color: Colors.white),
+              ),
+              onPressed: () {
+                // TODO implement callback
+                print("press edit table item");
+              },
+            ),
+          ),
+          Container(
+            width: 25,
+            child: FlatButton(
+              padding: EdgeInsets.zero,
+              child: Text(
+                "Delete",
+                style: TextStyle(fontSize: 8, color: Colors.white),
+              ),
+              onPressed: () {
+                // TODO implement callback
+                print("press edit table item");
+              },
+            ),
+          )
         ],
       ),
     );
   }
 
-  Widget _orderTableInitRow(){
-    List<String> initRowCells = ['ID',	'Symbol',	'Type',	'Size',	'Open rate',	'Open time',	'Stop loss',	'Take profit',	'Profit',	'Swap',	'Contract',	'Current rate',	'Actions'];
-    List<Widget> cells = initRowCells.map((String name){
-      return _initRowCell(name);
+  Widget _footer() {
+    List<FooterData> footerData = [
+      FooterData(name: "Balance", value: "12009"),
+      FooterData(name: "Equity", value: "166"),
+      FooterData(name: "Margin", value: "433"),
+      FooterData(name: "Free margin", value: "511"),
+    ];
+    List<Widget> footer = footerData.map((FooterData data) {
+      return Container(
+        padding: EdgeInsets.all(4.0),
+        child: Text(
+          '${data.name}: ${data.value}',
+          style: TextStyle(color: Colors.white, fontSize: 10),
+        ),
+      );
     }).toList();
     return Container(
-      color: Colors.grey[700],
+      color: Colors.grey[800],
       child: Row(
-        children: cells,
-      )
-    );
-  }
-
-  Widget _initRowCell(String name){
-    return Container(
-      decoration: BoxDecoration(
-        border: Border(
-          right: BorderSide(color: Colors.black, width: 0.5)
-        )
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: footer,
       ),
-      padding: EdgeInsets.all(4.0),
-      child: Text(name, style: TextStyle(color: Colors.white, fontSize: 10),)
     );
-  }
-
-  List<Widget> orderTableRows(){
-    
   }
 }
