@@ -9,6 +9,7 @@ import 'package:fluttercryptoui/language.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:bidirectional_scroll_view/bidirectional_scroll_view.dart';
 import 'package:fluttercryptoui/openedPosition.dart';
+import 'package:circular_check_box/circular_check_box.dart';
 
 void main() => runApp(MyApp());
 
@@ -51,6 +52,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
     return Scaffold(
       appBar: _loginAppBar(),
       body: Container(
+        padding: EdgeInsets.only(top:20.0),
         color: backColor,
         child: Center(
           child: ListView(
@@ -407,6 +409,58 @@ class _MyHomePageState extends State<MyHomePage> {
         swap: "1200",
         contract: "200",
         currentRate: "300"),
+      OpenedPosition(
+        id: "3",
+        symbol: "ZUZUZ",
+        type: "QU",
+        size: "120",
+        openRate: "300",
+        openTime: "740",
+        stopLoss: "10",
+        takeProfit: "1200",
+        profit: "1705",
+        swap: "1200",
+        contract: "200",
+        currentRate: "300"),
+      OpenedPosition(
+        id: "3",
+        symbol: "ZUZUZ",
+        type: "QU",
+        size: "120",
+        openRate: "300",
+        openTime: "740",
+        stopLoss: "10",
+        takeProfit: "1200",
+        profit: "1705",
+        swap: "1200",
+        contract: "200",
+        currentRate: "300"),
+      OpenedPosition(
+        id: "3",
+        symbol: "ZUZUZ",
+        type: "QU",
+        size: "120",
+        openRate: "300",
+        openTime: "740",
+        stopLoss: "10",
+        takeProfit: "1200",
+        profit: "1705",
+        swap: "1200",
+        contract: "200",
+        currentRate: "300"),
+      OpenedPosition(
+        id: "3",
+        symbol: "ZUZUZ",
+        type: "QU",
+        size: "120",
+        openRate: "300",
+        openTime: "740",
+        stopLoss: "10",
+        takeProfit: "1200",
+        profit: "1705",
+        swap: "1200",
+        contract: "200",
+        currentRate: "300"),
   ];
 
   @override
@@ -414,19 +468,22 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       drawer: _drawer(),
       appBar: _appBar(),
-      body: _body(),
+      body: 
+        ListView(
+          children: <Widget>[_body(),]
+        )
     );
   }
 
   Widget _appBar() {
     return AppBar(
-      title: FlatButton(
-          onPressed: () {
-            // TODO implement callback
-            print("press logo");
-          },
-          child: Image.asset('images/logo.png',
-              height: 30.0, fit: BoxFit.scaleDown)),
+      // title: FlatButton(
+      //     onPressed: () {
+      //       // TODO implement callback
+      //       print("press logo");
+      //     },
+      //     child: Image.asset('images/logo.png',
+      //         height: 30.0, fit: BoxFit.scaleDown)),
       actions: <Widget>[
         Container(
           margin: EdgeInsets.only(top: 5.0, bottom: 5.0),
@@ -449,6 +506,7 @@ class _MyHomePageState extends State<MyHomePage> {
             onSelected: (String menuOption) {
               //TODO implement callback on select
               print(menuOption);
+              // showDialogModal(menuOption);
             },
             itemBuilder: (BuildContext context) {
               return menuOptions.map((String option) {
@@ -474,6 +532,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 // TODO implement callback
                 print("press deposit");
+                showDialogModal("Deposit");
               },
               child: Container(
                 padding: EdgeInsets.only(left: 5.0, right: 5.0),
@@ -499,6 +558,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 // TODO implement callback
                 print("tech support press");
+                // showDialogModal("TechSupport");
               }),
         ),
         Container(
@@ -822,6 +882,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _body() {
     const darkPurple = Color.fromRGBO(33, 31, 46, 1);
     return Container(
+      // height: MediaQuery.of(context).size.height,
       color: Colors.grey[600],
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1211,6 +1272,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   //TODO implement callback
                   print("press Create order");
+                  // showDialogModal("CreateOrder");
                 },
                 child: Text(
                   "Create order",
@@ -1289,8 +1351,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _orderTable() {
     return Container(
-        height: 130,
+        height: 136.5,
         child: BidirectionalScrollViewPlugin(
+          scrollOverflow: Overflow.clip,
           child: _orderTableRows(),
         ));
   }
@@ -1446,6 +1509,256 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: footer,
+      ),
+    );
+  }
+
+  void showDialogModal(String type){
+    print("press show $type dialog");
+    Widget simpleDialog;
+    if(type == "Deposit") {
+      simpleDialog = DepositDialog();
+    }
+    showDialog(
+        context: context, builder: (BuildContext context) => simpleDialog);
+  }
+}
+
+class DepositDialog extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => DepositDialogState();
+}
+
+class DepositDialogState extends State<DepositDialog> {
+  int moneyLeftForVip = 9600;
+  String pickedAmount = "10,000";
+  String _currentSelectedMerchant = null;
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Container(
+      child: _depositDialogModal(),
+    );
+  }
+
+    Dialog _depositDialogModal(){
+      var _merchants = [
+        "PayBoutique",
+        "Accentpay",
+        "ECommPay",
+      ];
+    return Dialog(
+      backgroundColor: Colors.blueGrey[700],
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.0),
+      ),
+      child: Container(
+        height: 500.0,
+        width: 450.0,
+        child: ListView(
+          children: <Widget>[
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      _moneyValuesColumn()
+                    ],
+                  ),
+                ),
+                Container(
+                  child: Column(
+                    children: <Widget>[
+                      Text("Merchant", style : TextStyle(color: Colors.white)),
+                      Container(
+                        margin: EdgeInsets.only(top:4.0, bottom: 4.0),
+                        width: 180,
+                        child: FormField<String>(
+                          builder: (FormFieldState<String> state) {
+                            return InputDecorator(
+                              decoration: InputDecoration(
+                                  labelStyle: TextStyle(color: Colors.white),
+                                  errorStyle: TextStyle(color: Colors.redAccent, fontSize: 16.0),
+                                  // hintText: 'Please select merchant',
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Colors.white,
+                                    ), 
+                                    borderRadius: BorderRadius.circular(10.0) )),
+                              isEmpty: _currentSelectedMerchant == null,
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton<String>(
+                                  iconEnabledColor: Colors.white,
+                                  iconDisabledColor: Colors.white,
+                                  value: _currentSelectedMerchant,
+                                  isDense: true,
+                                  onChanged: (String newValue) {
+                                    setState(() {
+                                      _currentSelectedMerchant = newValue;
+                                      state.didChange(newValue);
+                                    });
+                                  },
+                                  items: _merchants.map((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Container(
+                                        color: Colors.blueGrey[700],
+                                        child: Text(value, style: TextStyle(color: Colors.white, fontSize: 10 )),
+                                      ),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      Text("Amount", style : TextStyle(color: Colors.white)),
+                      Container(
+                        margin: EdgeInsets.only(top: 4.0, bottom: 4.0),
+                        width: 180,
+                        child: TextField(
+                          style: TextStyle(color: Colors.white),
+                          decoration: InputDecoration(border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0)
+                          )),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: 10.0),
+                        height: 30,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                          color: Colors.green,
+                        ),
+                        child: FlatButton(
+                          child: Text("Proceed to payment", style: TextStyle(color: Colors.white ) ),
+                          onPressed: (){
+                            // TODO implement callback
+                            print("press proceed to payment");
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ],
+        )
+      ),
+    );
+  }
+
+  Widget _moneyValuesColumn(){
+    Color paleOrange = Color.fromRGBO(203,151,112, 1);
+    return Container(
+      child: Column(
+        children: <Widget>[
+          Container(
+            child: Row(
+              children: <Widget>[
+                Icon(MaterialCommunityIcons.crown, size: 12, color: paleOrange),
+                Text("Remaining for VIP: \$ $moneyLeftForVip",style: TextStyle(color: paleOrange, fontSize: 10) ),
+              ],
+            ),
+          ),
+          Text("Get VIP now", style: TextStyle(color: paleOrange, fontSize: 8)),
+          Container(
+            margin: EdgeInsets.only(top: 5.0),
+            child: _moneyAmountCheck(),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _moneyAmountCheck(){
+    List<String> moneyValues = ["10,000", "7,000" ,"5,000", "3,000", "2,500", "2,000", "1,500", "1,000", "700", "500"];
+    return Container(
+      child: Column(
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              _singleAmountCheck(moneyValues[0]),
+              _singleAmountCheck(moneyValues[1]),
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              _singleAmountCheck(moneyValues[2]),
+              _singleAmountCheck(moneyValues[3]),
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              _singleAmountCheck(moneyValues[4]),
+              _singleAmountCheck(moneyValues[5]),
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              _singleAmountCheck(moneyValues[6]),
+              _singleAmountCheck(moneyValues[7]),
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              _singleAmountCheck(moneyValues[8]),
+              _singleAmountCheck(moneyValues[9]),
+            ],
+          )
+        ],
+      )
+    );
+  }
+
+  Widget _singleAmountCheck(String amount){
+    Color paleOrange = Color.fromRGBO(203,151,112, 1);
+    return Container(
+      height: 30,
+      width: 80,
+      margin: EdgeInsets.all(2.5),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(7.0)),
+        border: Border.all(
+          width: 0.5, color : amount == pickedAmount ? paleOrange : Colors.grey[300]
+        )
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Container(
+            width: 40,
+            child: CircularCheckBox(
+              inactiveColor: Colors.white,
+              activeColor: paleOrange,
+              onChanged: (bool newIsChecked) {
+                // TODO implement callback
+                print("money amount checkbox pressed");
+                setState(() {
+                  pickedAmount = amount;
+                });
+              },
+              value: amount == pickedAmount,
+            )
+          ),
+          Container(
+            margin: EdgeInsets.only(right : 2.5),
+            child: Text(
+              '\$$amount', 
+              style: TextStyle(
+                fontSize: 10, 
+                color: amount == pickedAmount ? paleOrange : Colors.grey[300] 
+              ) 
+            ),
+          )
+        ],
       ),
     );
   }
