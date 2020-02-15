@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_candlesticks/flutter_candlesticks.dart';
 import 'package:fluttercryptoui/bid.dart';
 import 'package:fluttercryptoui/cityTime.dart';
+import 'package:fluttercryptoui/closedPosition.dart';
 import 'package:fluttercryptoui/filter.dart';
 import 'package:fluttercryptoui/footerData.dart';
 import 'package:fluttercryptoui/graphicType.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:bidirectional_scroll_view/bidirectional_scroll_view.dart';
 import 'package:fluttercryptoui/openedPosition.dart';
 import 'package:circular_check_box/circular_check_box.dart';
+import 'package:fluttercryptoui/pendingOrders.dart';
 
 void main() => runApp(MyApp());
 
@@ -52,7 +54,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
     return Scaffold(
       appBar: _loginAppBar(),
       body: Container(
-        padding: EdgeInsets.only(top:20.0),
+        padding: EdgeInsets.only(top: 20.0),
         color: backColor,
         child: Center(
           child: ListView(
@@ -227,6 +229,14 @@ Widget _loginRegistryRef() {
       ],
     ),
   );
+}
+
+class MyBehavior extends ScrollBehavior {
+  @override
+  Widget buildViewportChrome(
+      BuildContext context, Widget child, AxisDirection axisDirection) {
+    return child;
+  }
 }
 
 class MyHomePage extends StatefulWidget {
@@ -409,7 +419,7 @@ class _MyHomePageState extends State<MyHomePage> {
         swap: "1200",
         contract: "200",
         currentRate: "300"),
-      OpenedPosition(
+    OpenedPosition(
         id: "3",
         symbol: "ZUZUZ",
         type: "QU",
@@ -422,7 +432,7 @@ class _MyHomePageState extends State<MyHomePage> {
         swap: "1200",
         contract: "200",
         currentRate: "300"),
-      OpenedPosition(
+    OpenedPosition(
         id: "3",
         symbol: "ZUZUZ",
         type: "QU",
@@ -435,7 +445,7 @@ class _MyHomePageState extends State<MyHomePage> {
         swap: "1200",
         contract: "200",
         currentRate: "300"),
-      OpenedPosition(
+    OpenedPosition(
         id: "3",
         symbol: "ZUZUZ",
         type: "QU",
@@ -448,7 +458,7 @@ class _MyHomePageState extends State<MyHomePage> {
         swap: "1200",
         contract: "200",
         currentRate: "300"),
-      OpenedPosition(
+    OpenedPosition(
         id: "3",
         symbol: "ZUZUZ",
         type: "QU",
@@ -463,16 +473,231 @@ class _MyHomePageState extends State<MyHomePage> {
         currentRate: "300"),
   ];
 
+  List<ClosedPosition> closedPositionRows = [
+    ClosedPosition(
+        id: "2",
+        symbol: "ZXV",
+        type: "QU",
+        size: "120",
+        openRate: "300",
+        openTime: "740",
+        stopLoss: "10",
+        takeProfit: "1200",
+        profit: "1705",
+        swap: "1200",
+        contract: "200",
+        closeRate: "300"),
+    ClosedPosition(
+        id: "4",
+        symbol: "FDF",
+        type: "QU",
+        size: "120",
+        openRate: "300",
+        openTime: "740",
+        stopLoss: "10",
+        takeProfit: "1200",
+        profit: "1705",
+        swap: "1200",
+        contract: "200",
+        closeRate: "300"),
+    ClosedPosition(
+        id: "122",
+        symbol: "UGD",
+        type: "QU",
+        size: "120",
+        openRate: "300",
+        openTime: "740",
+        stopLoss: "10",
+        takeProfit: "1200",
+        profit: "1705",
+        swap: "1200",
+        contract: "200",
+        closeRate: "300"),
+    ClosedPosition(
+        id: "3",
+        symbol: "QSQS",
+        type: "QU",
+        size: "120",
+        openRate: "300",
+        openTime: "740",
+        stopLoss: "10",
+        takeProfit: "1200",
+        profit: "1705",
+        swap: "1200",
+        contract: "200",
+        closeRate: "300"),
+    ClosedPosition(
+        id: "3",
+        symbol: "ASAS",
+        type: "QU",
+        size: "120",
+        openRate: "300",
+        openTime: "740",
+        stopLoss: "10",
+        takeProfit: "1200",
+        profit: "1705",
+        swap: "1200",
+        contract: "200",
+        closeRate: "300"),
+    ClosedPosition(
+        id: "3",
+        symbol: "GKGK",
+        type: "QU",
+        size: "120",
+        openRate: "300",
+        openTime: "740",
+        stopLoss: "10",
+        takeProfit: "1200",
+        profit: "1705",
+        swap: "1200",
+        contract: "200",
+        closeRate: "300"),
+    ClosedPosition(
+        id: "3",
+        symbol: "ODOG",
+        type: "QU",
+        size: "120",
+        openRate: "300",
+        openTime: "740",
+        stopLoss: "10",
+        takeProfit: "1200",
+        profit: "1705",
+        swap: "1200",
+        contract: "200",
+        closeRate: "300"),
+    ClosedPosition(
+        id: "3",
+        symbol: "ISISI",
+        type: "QU",
+        size: "120",
+        openRate: "300",
+        openTime: "740",
+        stopLoss: "10",
+        takeProfit: "1200",
+        profit: "1705",
+        swap: "1200",
+        contract: "200",
+        closeRate: "300"),
+  ];
+
+  List<PendingOrder> pendingOrdersRows = [
+    PendingOrder(
+        id: "2",
+        symbol: "KIKI",
+        type: "QU",
+        size: "120",
+        atTheRate: "300",
+        openTime: "740",
+        stopLoss: "10",
+        takeProfit: "1200",
+        profit: "1705",
+        swap: "1200",
+        contract: "200",
+        currentRate: "300"),
+    PendingOrder(
+        id: "4",
+        symbol: "ZZZZ",
+        type: "QU",
+        size: "120",
+        atTheRate: "300",
+        openTime: "740",
+        stopLoss: "10",
+        takeProfit: "1200",
+        profit: "1705",
+        swap: "1200",
+        contract: "200",
+        currentRate: "300"),
+    PendingOrder(
+        id: "122",
+        symbol: "XXX",
+        type: "QU",
+        size: "120",
+        atTheRate: "300",
+        openTime: "740",
+        stopLoss: "10",
+        takeProfit: "1200",
+        profit: "1705",
+        swap: "1200",
+        contract: "200",
+        currentRate: "300"),
+    PendingOrder(
+        id: "3",
+        symbol: "GFHSG",
+        type: "SDH",
+        size: "120",
+        atTheRate: "300",
+        openTime: "740",
+        stopLoss: "10",
+        takeProfit: "1200",
+        profit: "1705",
+        swap: "1200",
+        contract: "200",
+        currentRate: "300"),
+    PendingOrder(
+        id: "3",
+        symbol: "DUJG",
+        type: "QU",
+        size: "120",
+        atTheRate: "300",
+        openTime: "740",
+        stopLoss: "10",
+        takeProfit: "1200",
+        profit: "1705",
+        swap: "1200",
+        contract: "200",
+        currentRate: "300"),
+    PendingOrder(
+        id: "3",
+        symbol: "KT",
+        type: "QU",
+        size: "120",
+        atTheRate: "300",
+        openTime: "740",
+        stopLoss: "10",
+        takeProfit: "1200",
+        profit: "1705",
+        swap: "1200",
+        contract: "200",
+        currentRate: "300"),
+    PendingOrder(
+        id: "3",
+        symbol: "QWGRTK",
+        type: "QU",
+        size: "120",
+        atTheRate: "300",
+        openTime: "740",
+        stopLoss: "10",
+        takeProfit: "1200",
+        profit: "1705",
+        swap: "1200",
+        contract: "200",
+        currentRate: "300"),
+    PendingOrder(
+        id: "3",
+        symbol: "KJYT",
+        type: "QU",
+        size: "120",
+        atTheRate: "300",
+        openTime: "740",
+        stopLoss: "10",
+        takeProfit: "1200",
+        profit: "1705",
+        swap: "1200",
+        contract: "200",
+        currentRate: "300"),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: _drawer(),
-      appBar: _appBar(),
-      body: 
-        ListView(
-          children: <Widget>[_body(),]
-        )
-    );
+        drawer: _drawer(),
+        appBar: _appBar(),
+        body: ScrollConfiguration(
+          behavior: MyBehavior(),
+          child: ListView(children: <Widget>[
+            _body(),
+          ]),
+        ));
   }
 
   Widget _appBar() {
@@ -506,7 +731,7 @@ class _MyHomePageState extends State<MyHomePage> {
             onSelected: (String menuOption) {
               //TODO implement callback on select
               print(menuOption);
-              // showDialogModal(menuOption);
+              showDialogModal(menuOption);
             },
             itemBuilder: (BuildContext context) {
               return menuOptions.map((String option) {
@@ -558,7 +783,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 // TODO implement callback
                 print("tech support press");
-                // showDialogModal("TechSupport");
+                showDialogModal("TechSupport");
               }),
         ),
         Container(
@@ -893,7 +1118,7 @@ class _MyHomePageState extends State<MyHomePage> {
           _chart(),
           _positionsAndOrders(),
           _searchAndSwitch(),
-          _orderTable(),
+          _currentTable(),
           _footer()
         ],
       ),
@@ -1349,24 +1574,62 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget _orderTable() {
+  Widget _currentTable() {
     return Container(
-        height: 136.5,
-        child: BidirectionalScrollViewPlugin(
-          scrollOverflow: Overflow.clip,
-          child: _orderTableRows(),
-        ));
+      height: 136.5,
+      child: pickedPositionAndOrderMode == "Opened positions"
+          ? BidirectionalScrollViewPlugin(
+              scrollOverflow: Overflow.clip,
+              child: _openedTableRows(),
+            )
+          : pickedPositionAndOrderMode == "Closed positions"
+              ? Container(
+                  child: BidirectionalScrollViewPlugin(
+                    scrollOverflow: Overflow.clip,
+                    child: _closedTableRows(),
+                  ),
+                )
+              : Padding(
+                  padding: EdgeInsets.zero,
+                  child: BidirectionalScrollViewPlugin(
+                    scrollOverflow: Overflow.clip,
+                    child: _pendingTableRows(),
+                  ),
+                ),
+    );
   }
 
-  Widget _orderTableRows() {
+  Widget _openedTableRows() {
     return Container(
       child: Column(
-        children: <Widget>[_orderTableInitRow(), openedPositionTableRows()],
+        children: <Widget>[
+          _openedPositionInitRow(),
+          _openedPositionTableRows()
+        ],
       ),
     );
   }
 
-  Widget _orderTableInitRow() {
+  Widget _closedTableRows() {
+    return Container(
+      child: Column(
+        children: <Widget>[
+          _closedPositionInitRow(),
+          _closedPositionTableRows()
+        ],
+      ),
+    );
+  }
+
+  Widget _pendingTableRows() {
+    return Container(
+      child: Column(
+        children: <Widget>[_pendingOrderInitRow(), _pendingPositionTableRows()],
+      ),
+    );
+  }
+
+  Widget _openedPositionInitRow() {
     List<String> initRowCells = [
       'ID',
       'Symbol',
@@ -1392,6 +1655,57 @@ class _MyHomePageState extends State<MyHomePage> {
         ));
   }
 
+  Widget _closedPositionInitRow() {
+    List<String> initRowCells = [
+      'ID',
+      'Symbol',
+      'Type',
+      'Size',
+      'Open rate',
+      'Open time',
+      'Stop loss',
+      'Take profit',
+      'Profit',
+      'Swap',
+      'Contract',
+      'Closed rate',
+    ];
+    List<Widget> cells = initRowCells.map((String name) {
+      return _initRowCell(name);
+    }).toList();
+    return Container(
+        color: Colors.grey[700],
+        child: Row(
+          children: cells,
+        ));
+  }
+
+  Widget _pendingOrderInitRow() {
+    List<String> initRowCells = [
+      'ID',
+      'Symbol',
+      'Type',
+      'Size',
+      'At the rate',
+      'Open time',
+      'Stop loss',
+      'Take profit',
+      'Profit',
+      'Swap',
+      'Contract',
+      'Current rate',
+      "Actions"
+    ];
+    List<Widget> cells = initRowCells.map((String name) {
+      return _initRowCell(name);
+    }).toList();
+    return Container(
+        color: Colors.grey[700],
+        child: Row(
+          children: cells,
+        ));
+  }
+
   Widget _initRowCell(String name) {
     return Container(
         width: 70,
@@ -1405,7 +1719,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ));
   }
 
-  Widget openedPositionTableRows() {
+  Widget _openedPositionTableRows() {
     List<Widget> rows = openedPositionRows.map((OpenedPosition position) {
       return Container(
         height: 20,
@@ -1417,6 +1731,67 @@ class _MyHomePageState extends State<MyHomePage> {
             _orderTableCell(position.type),
             _orderTableCell(position.size),
             _orderTableCell(position.openRate),
+            _orderTableCell(position.openTime),
+            _orderTableCell(position.stopLoss),
+            _orderTableCell(position.takeProfit),
+            _orderTableCell(position.profit),
+            _orderTableCell(position.swap),
+            _orderTableCell(position.contract),
+            _orderTableCell(position.currentRate),
+            _actions()
+          ],
+        ),
+      );
+    }).toList();
+    return Container(
+      child: Column(
+        children: rows,
+      ),
+    );
+  }
+
+  Widget _closedPositionTableRows() {
+    List<Widget> rows = closedPositionRows.map((ClosedPosition position) {
+      return Container(
+        height: 20,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            _orderTableCell(position.id),
+            _orderTableCell(position.symbol),
+            _orderTableCell(position.type),
+            _orderTableCell(position.size),
+            _orderTableCell(position.openRate),
+            _orderTableCell(position.openTime),
+            _orderTableCell(position.stopLoss),
+            _orderTableCell(position.takeProfit),
+            _orderTableCell(position.profit),
+            _orderTableCell(position.swap),
+            _orderTableCell(position.contract),
+            _orderTableCell(position.closeRate),
+          ],
+        ),
+      );
+    }).toList();
+    return Container(
+      child: Column(
+        children: rows,
+      ),
+    );
+  }
+
+  Widget _pendingPositionTableRows() {
+    List<Widget> rows = pendingOrdersRows.map((PendingOrder position) {
+      return Container(
+        height: 20,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            _orderTableCell(position.id),
+            _orderTableCell(position.symbol),
+            _orderTableCell(position.type),
+            _orderTableCell(position.size),
+            _orderTableCell(position.atTheRate),
             _orderTableCell(position.openTime),
             _orderTableCell(position.stopLoss),
             _orderTableCell(position.takeProfit),
@@ -1513,20 +1888,228 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void showDialogModal(String type){
+  void showDialogModal(String type) {
     print("press show $type dialog");
     Widget simpleDialog;
-    if(type == "Deposit") {
+    if (type == "Deposit") {
       simpleDialog = DepositDialog();
+    }
+    if (type == "TechSupport") {
+      simpleDialog = _techSupportDialog();
+    }
+    if (type == "Withdraw") {
+      simpleDialog = _withdrawDialog();
+    }
+    if (type == "Finance") {
+      simpleDialog = _financeDialog();
     }
     showDialog(
         context: context, builder: (BuildContext context) => simpleDialog);
   }
 }
 
+Dialog _financeDialog() {
+  return Dialog(
+    backgroundColor: Colors.blueGrey[700],
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12.0),
+    ),
+    child: Container(
+        height: 250.0,
+        width: 500.0,
+        child: Padding(
+          padding: EdgeInsets.all(15.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                child: FlatButton(
+                  child: Text("Pick date interval"),
+                  onPressed: () {
+                    // TODO implement callback
+                    print("Finance pick date");
+                    // showDatePicker(context: Bi, initialDate: null, firstDate: null, lastDate: null);
+                  },
+                ),
+              ),
+            ],
+          ),
+        )),
+  );
+}
+
+Dialog _withdrawDialog() {
+  return Dialog(
+    backgroundColor: Colors.blueGrey[700],
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12.0),
+    ),
+    child: Container(
+        height: 250.0,
+        width: 450.0,
+        child: Padding(
+          padding: EdgeInsets.all(15.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                child: Text(
+                  "Withdraw",
+                  style: TextStyle(color: Colors.green, fontSize: 20),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 20),
+                child: Text(
+                  "Amount",
+                  style: TextStyle(color: Colors.white, fontSize: 12),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 10),
+                width: 200,
+                child: TextField(
+                  keyboardType: TextInputType.numberWithOptions(),
+                  maxLines: 1,
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                      suffixIcon: Container(
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              width: 20,
+                              height: 20,
+                              child: IconButton(
+                                padding: EdgeInsets.zero,
+                                icon: Icon(
+                                  Icons.arrow_upward,
+                                  size: 14,
+                                  color: Colors.white,
+                                ),
+                                onPressed: () {
+                                  // TODO implement callback
+                                  print("withdraw up");
+                                },
+                              ),
+                            ),
+                            Container(
+                              width: 20,
+                              height: 20,
+                              child: IconButton(
+                                padding: EdgeInsets.zero,
+                                icon: Icon(
+                                  Icons.arrow_downward,
+                                  size: 14,
+                                  color: Colors.white,
+                                ),
+                                onPressed: () {
+                                  // TODO implement callback
+                                  print("withdraw down");
+                                },
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      labelStyle: TextStyle(color: Colors.white),
+                      errorStyle:
+                          TextStyle(color: Colors.redAccent, fontSize: 16.0),
+                      // hintText: 'Please select merchant',
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white,
+                          ),
+                          borderRadius: BorderRadius.circular(10.0)),
+                      enabledBorder: const OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(color: Colors.grey, width: 0.0),
+                      )),
+                ),
+              ),
+              Container(
+                width: 170,
+                height: 40,
+                margin: EdgeInsets.only(top: 10.0),
+                decoration: BoxDecoration(
+                  color: Colors.green,
+                  borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                ),
+                child: FlatButton(
+                  padding: EdgeInsets.zero,
+                  child: Text("Order withdrawal",
+                      style: TextStyle(color: Colors.white, fontSize: 14)),
+                  onPressed: () {
+                    // TODO implement callback
+                    print("press send message to tech support");
+                  },
+                ),
+              )
+            ],
+          ),
+        )),
+  );
+}
+
 class DepositDialog extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => DepositDialogState();
+}
+
+Dialog _techSupportDialog() {
+  return Dialog(
+    backgroundColor: Colors.blueGrey[700],
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12.0),
+    ),
+    child: Container(
+        height: 250.0,
+        width: 450.0,
+        child: Padding(
+          padding: EdgeInsets.all(15.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                width: 200,
+                child: TextField(
+                  maxLines: 3,
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                      labelStyle: TextStyle(color: Colors.white),
+                      errorStyle:
+                          TextStyle(color: Colors.redAccent, fontSize: 16.0),
+                      // hintText: 'Please select merchant',
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white,
+                          ),
+                          borderRadius: BorderRadius.circular(10.0)),
+                      enabledBorder: const OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(color: Colors.grey, width: 0.0),
+                      )),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 10.0),
+                decoration: BoxDecoration(
+                  color: Colors.green,
+                  borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                ),
+                child: FlatButton(
+                  padding: EdgeInsets.zero,
+                  child: Text("Send",
+                      style: TextStyle(color: Colors.white, fontSize: 14)),
+                  onPressed: () {
+                    // TODO implement callback
+                    print("press send message to tech support");
+                  },
+                ),
+              )
+            ],
+          ),
+        )),
+  );
 }
 
 class DepositDialogState extends State<DepositDialog> {
@@ -1542,121 +2125,126 @@ class DepositDialogState extends State<DepositDialog> {
     );
   }
 
-    Dialog _depositDialogModal(){
-      var _merchants = [
-        "PayBoutique",
-        "Accentpay",
-        "ECommPay",
-      ];
+  Dialog _depositDialogModal() {
+    var _merchants = [
+      "PayBoutique",
+      "Accentpay",
+      "ECommPay",
+    ];
     return Dialog(
       backgroundColor: Colors.blueGrey[700],
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12.0),
       ),
       child: Container(
-        height: 500.0,
-        width: 450.0,
-        child: ListView(
-          children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.all(15.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      _moneyValuesColumn()
-                    ],
+          height: 500.0,
+          width: 450.0,
+          child: ListView(
+            children: <Widget>[
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.all(15.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[_moneyValuesColumn()],
+                    ),
                   ),
-                ),
-                Container(
-                  child: Column(
-                    children: <Widget>[
-                      Text("Merchant", style : TextStyle(color: Colors.white)),
-                      Container(
-                        margin: EdgeInsets.only(top:4.0, bottom: 4.0),
-                        width: 180,
-                        child: FormField<String>(
-                          builder: (FormFieldState<String> state) {
-                            return InputDecorator(
-                              decoration: InputDecoration(
-                                  labelStyle: TextStyle(color: Colors.white),
-                                  errorStyle: TextStyle(color: Colors.redAccent, fontSize: 16.0),
-                                  // hintText: 'Please select merchant',
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Colors.white,
-                                    ), 
-                                    borderRadius: BorderRadius.circular(10.0) )),
-                              isEmpty: _currentSelectedMerchant == null,
-                              child: DropdownButtonHideUnderline(
-                                child: DropdownButton<String>(
-                                  iconEnabledColor: Colors.white,
-                                  iconDisabledColor: Colors.white,
-                                  value: _currentSelectedMerchant,
-                                  isDense: true,
-                                  onChanged: (String newValue) {
-                                    setState(() {
-                                      _currentSelectedMerchant = newValue;
-                                      state.didChange(newValue);
-                                    });
-                                  },
-                                  items: _merchants.map((String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Container(
-                                        color: Colors.blueGrey[700],
-                                        child: Text(value, style: TextStyle(color: Colors.white, fontSize: 10 )),
-                                      ),
-                                    );
-                                  }).toList(),
+                  Container(
+                    child: Column(
+                      children: <Widget>[
+                        Text("Merchant", style: TextStyle(color: Colors.white)),
+                        Container(
+                          margin: EdgeInsets.only(top: 4.0, bottom: 4.0),
+                          width: 180,
+                          child: FormField<String>(
+                            builder: (FormFieldState<String> state) {
+                              return InputDecorator(
+                                decoration: InputDecoration(
+                                    labelStyle: TextStyle(color: Colors.white),
+                                    errorStyle: TextStyle(
+                                        color: Colors.redAccent,
+                                        fontSize: 16.0),
+                                    // hintText: 'Please select merchant',
+                                    border: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Colors.white,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0))),
+                                isEmpty: _currentSelectedMerchant == null,
+                                child: DropdownButtonHideUnderline(
+                                  child: DropdownButton<String>(
+                                    iconEnabledColor: Colors.white,
+                                    iconDisabledColor: Colors.white,
+                                    value: _currentSelectedMerchant,
+                                    isDense: true,
+                                    onChanged: (String newValue) {
+                                      setState(() {
+                                        _currentSelectedMerchant = newValue;
+                                        state.didChange(newValue);
+                                      });
+                                    },
+                                    items: _merchants.map((String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Container(
+                                          color: Colors.blueGrey[700],
+                                          child: Text(value,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 10)),
+                                        ),
+                                      );
+                                    }).toList(),
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
                         ),
-                      ),
-                      Text("Amount", style : TextStyle(color: Colors.white)),
-                      Container(
-                        margin: EdgeInsets.only(top: 4.0, bottom: 4.0),
-                        width: 180,
-                        child: TextField(
-                          style: TextStyle(color: Colors.white),
-                          decoration: InputDecoration(border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0)
-                          )),
+                        Text("Amount", style: TextStyle(color: Colors.white)),
+                        Container(
+                          margin: EdgeInsets.only(top: 4.0, bottom: 4.0),
+                          width: 180,
+                          child: TextField(
+                            style: TextStyle(color: Colors.white),
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0))),
+                          ),
                         ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(top: 10.0),
-                        height: 30,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                          color: Colors.green,
-                        ),
-                        child: FlatButton(
-                          child: Text("Proceed to payment", style: TextStyle(color: Colors.white ) ),
-                          onPressed: (){
-                            // TODO implement callback
-                            print("press proceed to payment");
-                          },
-                        ),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ],
-        )
-      ),
+                        Container(
+                          margin: EdgeInsets.only(top: 10.0),
+                          height: 30,
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(30.0)),
+                            color: Colors.green,
+                          ),
+                          child: FlatButton(
+                            child: Text("Proceed to payment",
+                                style: TextStyle(color: Colors.white)),
+                            onPressed: () {
+                              // TODO implement callback
+                              print("press proceed to payment");
+                            },
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ],
+          )),
     );
   }
 
-  Widget _moneyValuesColumn(){
-    Color paleOrange = Color.fromRGBO(203,151,112, 1);
+  Widget _moneyValuesColumn() {
+    Color paleOrange = Color.fromRGBO(203, 151, 112, 1);
     return Container(
       child: Column(
         children: <Widget>[
@@ -1664,7 +2252,8 @@ class DepositDialogState extends State<DepositDialog> {
             child: Row(
               children: <Widget>[
                 Icon(MaterialCommunityIcons.crown, size: 12, color: paleOrange),
-                Text("Remaining for VIP: \$ $moneyLeftForVip",style: TextStyle(color: paleOrange, fontSize: 10) ),
+                Text("Remaining for VIP: \$ $moneyLeftForVip",
+                    style: TextStyle(color: paleOrange, fontSize: 10)),
               ],
             ),
           ),
@@ -1678,85 +2267,92 @@ class DepositDialogState extends State<DepositDialog> {
     );
   }
 
-  Widget _moneyAmountCheck(){
-    List<String> moneyValues = ["10,000", "7,000" ,"5,000", "3,000", "2,500", "2,000", "1,500", "1,000", "700", "500"];
+  Widget _moneyAmountCheck() {
+    List<String> moneyValues = [
+      "10,000",
+      "7,000",
+      "5,000",
+      "3,000",
+      "2,500",
+      "2,000",
+      "1,500",
+      "1,000",
+      "700",
+      "500"
+    ];
     return Container(
-      child: Column(
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              _singleAmountCheck(moneyValues[0]),
-              _singleAmountCheck(moneyValues[1]),
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              _singleAmountCheck(moneyValues[2]),
-              _singleAmountCheck(moneyValues[3]),
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              _singleAmountCheck(moneyValues[4]),
-              _singleAmountCheck(moneyValues[5]),
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              _singleAmountCheck(moneyValues[6]),
-              _singleAmountCheck(moneyValues[7]),
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              _singleAmountCheck(moneyValues[8]),
-              _singleAmountCheck(moneyValues[9]),
-            ],
-          )
-        ],
-      )
-    );
+        child: Column(
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            _singleAmountCheck(moneyValues[0]),
+            _singleAmountCheck(moneyValues[1]),
+          ],
+        ),
+        Row(
+          children: <Widget>[
+            _singleAmountCheck(moneyValues[2]),
+            _singleAmountCheck(moneyValues[3]),
+          ],
+        ),
+        Row(
+          children: <Widget>[
+            _singleAmountCheck(moneyValues[4]),
+            _singleAmountCheck(moneyValues[5]),
+          ],
+        ),
+        Row(
+          children: <Widget>[
+            _singleAmountCheck(moneyValues[6]),
+            _singleAmountCheck(moneyValues[7]),
+          ],
+        ),
+        Row(
+          children: <Widget>[
+            _singleAmountCheck(moneyValues[8]),
+            _singleAmountCheck(moneyValues[9]),
+          ],
+        )
+      ],
+    ));
   }
 
-  Widget _singleAmountCheck(String amount){
-    Color paleOrange = Color.fromRGBO(203,151,112, 1);
+  Widget _singleAmountCheck(String amount) {
+    Color paleOrange = Color.fromRGBO(203, 151, 112, 1);
     return Container(
       height: 30,
       width: 80,
       margin: EdgeInsets.all(2.5),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(7.0)),
-        border: Border.all(
-          width: 0.5, color : amount == pickedAmount ? paleOrange : Colors.grey[300]
-        )
-      ),
+          borderRadius: BorderRadius.all(Radius.circular(7.0)),
+          border: Border.all(
+              width: 0.5,
+              color: amount == pickedAmount ? paleOrange : Colors.grey[300])),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
-            width: 40,
-            child: CircularCheckBox(
-              inactiveColor: Colors.white,
-              activeColor: paleOrange,
-              onChanged: (bool newIsChecked) {
-                // TODO implement callback
-                print("money amount checkbox pressed");
-                setState(() {
-                  pickedAmount = amount;
-                });
-              },
-              value: amount == pickedAmount,
-            )
-          ),
+              width: 40,
+              child: CircularCheckBox(
+                inactiveColor: Colors.white,
+                activeColor: paleOrange,
+                onChanged: (bool newIsChecked) {
+                  // TODO implement callback
+                  print("money amount checkbox pressed");
+                  setState(() {
+                    pickedAmount = amount;
+                  });
+                },
+                value: amount == pickedAmount,
+              )),
           Container(
-            margin: EdgeInsets.only(right : 2.5),
-            child: Text(
-              '\$$amount', 
-              style: TextStyle(
-                fontSize: 10, 
-                color: amount == pickedAmount ? paleOrange : Colors.grey[300] 
-              ) 
-            ),
+            margin: EdgeInsets.only(right: 2.5),
+            child: Text('\$$amount',
+                style: TextStyle(
+                    fontSize: 10,
+                    color: amount == pickedAmount
+                        ? paleOrange
+                        : Colors.grey[300])),
           )
         ],
       ),
