@@ -692,6 +692,9 @@ class _MyHomePageState extends State<MyHomePage> {
         currentRate: "300"),
   ];
 
+  String currentOrderPrice = "9787";
+  bool isOrderModalOpen = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -716,6 +719,7 @@ class _MyHomePageState extends State<MyHomePage> {
       //         height: 30.0, fit: BoxFit.scaleDown)),
       actions: <Widget>[
         Container(
+          width: 50,
           margin: EdgeInsets.only(top: 5.0, bottom: 5.0),
           padding: EdgeInsets.only(left: 2.0, right: 2.0),
           decoration: BoxDecoration(
@@ -765,15 +769,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 showDialogModal("Deposit");
               },
               child: Container(
-                padding: EdgeInsets.only(left: 5.0, right: 5.0),
+                padding: EdgeInsets.only(left: 7.0, right: 7.0),
                 decoration: BoxDecoration(
-                    border: Border.all(color: Colors.greenAccent)),
+                  border: Border.all(color: Colors.greenAccent),
+                  borderRadius: BorderRadius.all(Radius.circular(10.0))
+                ),
                 child: Text("Deposit",
                     style: TextStyle(color: Colors.greenAccent, fontSize: 12)),
               )),
         ),
         Container(
-          width: 30,
+          width: 50,
           margin: EdgeInsets.only(top: 5.0, bottom: 5.0),
           padding: EdgeInsets.only(left: 2.0, right: 2.0),
           decoration: BoxDecoration(
@@ -783,15 +789,16 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: EdgeInsets.zero,
               icon: Icon(
                 Icons.headset_mic,
-                size: 14,
+                size: 16,
               ),
               onPressed: () {
                 // TODO implement callback
-                print("tech support press");
+                print("press tech support");
                 showDialogModal("TechSupport");
               }),
         ),
         Container(
+          width: 50,
           margin: EdgeInsets.only(top: 5.0, bottom: 5.0),
           padding: EdgeInsets.only(left: 2.0, right: 2.0),
           decoration: BoxDecoration(
@@ -999,9 +1006,20 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   List<Widget> _listRows() {
-    TextStyle orangeStyle = TextStyle(color: Colors.orange);
     List<Widget> allRows = [];
-    Widget initialRow = Card(
+    Widget initialRow = _drawerInitRow();
+    var rows = drawerBids.map((Bid bid) {
+      return _drawerInfoRow(bid);
+    });
+    allRows.add(initialRow);
+    rows.toList();
+    allRows.addAll(rows);
+    return allRows;
+  }
+
+  Widget _drawerInitRow(){
+    TextStyle orangeStyle = TextStyle(color: Colors.orange);
+    return Card(
       margin: EdgeInsets.zero,
       elevation: 10,
       child: Container(
@@ -1029,104 +1047,112 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
-    var rows = drawerBids.map((Bid bid) {
-      return Container(
-        height: 28,
-        decoration: BoxDecoration(
-          border: Border(
-            top: BorderSide(color: Colors.black, width: 1.0),
-          ),
-          color: Colors.blueGrey[900],
+  }
+
+  Widget _drawerInfoRow(Bid bid){
+    return Container(
+      height: 40,
+      decoration: BoxDecoration(
+        border: Border(
+          top: BorderSide(color: Colors.black, width: 1.0),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.only(left: 3.0),
-                    width: 20,
-                    child: IconButton(
-                        padding: EdgeInsets.zero,
-                        icon: Icon(
-                          Icons.star,
-                          color: Colors.white,
-                          size: 14,
-                        ),
-                        onPressed: () {
-                          // TODO implement callback
-                          print("press drawer star");
-                        }),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(right: 4.0),
-                    child: Icon(
-                      bid.up ? Icons.arrow_upward : Icons.arrow_downward,
-                      color: bid.up ? Colors.greenAccent : Colors.red,
-                      size: 14,
-                    ),
-                  ),
-                  Text(
-                    bid.symbol,
-                    style: TextStyle(color: Colors.white, fontSize: 10),
-                  )
-                ],
-              ),
-            ),
-            Container(
-              child: Text(bid.bid.toString(),
-                  style: TextStyle(color: Colors.white, fontSize: 8)),
-            ),
-            Container(
-                child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        color: Colors.blueGrey[900],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  bid.ask.toString(),
-                  style: TextStyle(color: Colors.white, fontSize: 8),
+                Container(
+                  padding: EdgeInsets.only(left: 3.0),
+                  width: 20,
+                  child: IconButton(
+                      padding: EdgeInsets.zero,
+                      icon: Icon(
+                        Icons.star,
+                        color: Colors.white,
+                        size: 14,
+                      ),
+                      onPressed: () {
+                        // TODO implement callback
+                        print("press drawer star");
+                      }),
                 ),
-                IconButton(
-                    icon: Icon(
-                      Icons.arrow_right,
-                      color: Colors.white,
-                      size: 12,
-                    ),
-                    onPressed: () {
-                      // TODO implement callback
-                      print('press drawer list arrow');
-                    })
+                Container(
+                  margin: EdgeInsets.only(right: 4.0),
+                  child: Icon(
+                    bid.up ? Icons.arrow_upward : Icons.arrow_downward,
+                    color: bid.up ? Colors.greenAccent : Colors.red,
+                    size: 14,
+                  ),
+                ),
+                Text(
+                  bid.symbol,
+                  style: TextStyle(color: Colors.white, fontSize: 10),
+                )
               ],
-            ))
-          ],
-        ),
-      );
-    });
-    allRows.add(initialRow);
-    rows.toList();
-    allRows.addAll(rows);
-    return allRows;
+            ),
+          ),
+          Container(
+            child: Text(bid.bid.toString(),
+                style: TextStyle(color: Colors.white, fontSize: 8)),
+          ),
+          Container(
+              child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+                bid.ask.toString(),
+                style: TextStyle(color: Colors.white, fontSize: 8),
+              ),
+              IconButton(
+                  icon: Icon(
+                    Icons.arrow_right,
+                    color: Colors.white,
+                    size: 12,
+                  ),
+                  onPressed: () {
+                    // TODO implement callback
+                    print('press drawer list arrow');
+                  })
+            ],
+          ))
+        ],
+      ),
+    );
   }
 
   Widget _body() {
     const darkPurple = Color.fromRGBO(33, 31, 46, 1);
-    return Container(
-      // height: MediaQuery.of(context).size.height,
-      color: Colors.grey[600],
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          _cityList(),
-          _graphicList(),
-          _info(),
-          _chart(),
-          _positionsAndOrders(),
-          _searchAndSwitch(),
-          _currentTable(),
-          _footer()
-        ],
-      ),
+    return Stack(
+      children: <Widget>[
+        Container(
+          height: MediaQuery.of(context).size.height * 0.8733,
+          color: Colors.grey[600],
+          child: Column(
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              _cityList(),
+              _graphicList(),
+              _info(),
+              _orderTop(),
+              _chart(),
+              _positionsAndOrders(),
+              _searchAndSwitch(),
+              _currentTable(),
+              _footer()
+            ],
+          ),
+    ), 
+    if(isOrderModalOpen)
+      OrderModal(isOpen: isOrderModalOpen, close: (){
+        setState(() {
+          isOrderModalOpen = false;
+        });
+      } ),
+      ],
     );
   }
 
@@ -1379,6 +1405,84 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  Widget _orderTop(){
+    return isOrderModalOpen ? Container(height: 20,) : Container(
+      height: 20,
+      width: 350,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Container(
+            width: 100,
+            color: Colors.red,
+            child: FlatButton(
+                onPressed: () {
+                  // TODO implement callback
+                  print("press Sell");
+                },
+                child: Text(
+                  "$currentOrderPrice Sell",
+                  style: TextStyle(color: Colors.white),
+                )),
+          ),
+          Container(
+            width: 130,
+            child: TextField(
+              keyboardType: TextInputType.number,
+              onChanged: (String text) {
+                print("create order text input");
+              },
+              style: TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                prefixIcon: IconButton(
+                  padding: EdgeInsets.zero,
+                  icon: Icon(
+                    MaterialCommunityIcons.minus,
+                    color: Colors.white,
+                    size: 12,
+                  ),
+                  onPressed: () {
+                    // TODO implement callback
+                    print("press create order minus");
+                  },
+                ),
+                suffixIcon: IconButton(
+                  padding: EdgeInsets.zero,
+                  icon: Icon(
+                    MaterialCommunityIcons.plus,
+                    color: Colors.white,
+                    size: 12,
+                  ),
+                  onPressed: () {
+                    // TODO implement callback
+                    print("press create order plus");
+                  },
+                ),
+                enabledBorder: const OutlineInputBorder(
+                  borderSide: const BorderSide(
+                      color: Colors.grey, width: 0.0),
+                ),
+              ),
+            ),
+          ),
+          Container(
+            width: 100,
+            color: Colors.grey[500],
+            child: FlatButton(
+                onPressed: () {
+                  // TODO implement callback
+                  print("press Buy");
+                },
+                child: Text(
+                  "$currentOrderPrice Buy",
+                  style: TextStyle(color: Colors.white),
+                )),
+          )
+        ],
+      ),
+    );
+  }
+
   Widget _chart() {
     List sampleData = [
       {
@@ -1421,7 +1525,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Container(
       // margin: EdgeInsets.only(top : 4.0),
       color: Colors.grey[900],
-      height: windowHeight * 0.44,
+      height: windowHeight * 0.4,
       child: OHLCVGraph(
           data: sampleData,
           enableGridLines: true,
@@ -1502,7 +1606,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   //TODO implement callback
                   print("press Create order");
-                  showDialogModal("CreateOrder");
+                  // showDialogModal("CreateOrder");
+                  setState(() {
+                    isOrderModalOpen = true;
+                  });
                 },
                 child: Text(
                   "Create order",
@@ -1583,56 +1690,65 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _currentTable() {
     return Container(
-      height: 136.5,
       child: pickedPositionAndOrderMode == "Opened positions"
-          ? BidirectionalScrollViewPlugin(
-              scrollOverflow: Overflow.clip,
-              child: _openedTableRows(),
-            )
+          ?  _openedTableRows()
           : pickedPositionAndOrderMode == "Closed positions"
-              ? Container(
-                  child: BidirectionalScrollViewPlugin(
-                    scrollOverflow: Overflow.clip,
-                    child: _closedTableRows(),
-                  ),
-                )
-              : Padding(
-                  padding: EdgeInsets.zero,
-                  child: BidirectionalScrollViewPlugin(
-                    scrollOverflow: Overflow.clip,
-                    child: _pendingTableRows(),
-                  ),
-                ),
+              ?  _closedTableRows()
+              :  _pendingTableRows()
     );
   }
 
   Widget _openedTableRows() {
     return Container(
-      child: Column(
+      height: 136.5,
+      width: MediaQuery.of(context).size.width,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
         children: <Widget>[
-          _openedPositionInitRow(),
-          _openedPositionTableRows()
+          Column(
+            children: <Widget>[
+              _openedPositionInitRow(),
+               _openedPositionTableRows()
+            ],
+          ),
         ],
-      ),
+      )
     );
   }
 
   Widget _closedTableRows() {
     return Container(
-      child: Column(
+      height: 136.5,
+      width: MediaQuery.of(context).size.width,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
         children: <Widget>[
-          _closedPositionInitRow(),
-          _closedPositionTableRows()
+          Column(
+            children: <Widget>[
+              _closedPositionInitRow(),
+              _closedPositionTableRows()
+            ],
+          ),
         ],
-      ),
+      )
     );
   }
 
   Widget _pendingTableRows() {
     return Container(
-      child: Column(
-        children: <Widget>[_pendingOrderInitRow(), _pendingPositionTableRows()],
-      ),
+      height: 136.5,
+      width: MediaQuery.of(context).size.width,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: <Widget>[
+          Column(
+            children: <Widget>[
+              _pendingOrderInitRow(),
+              _pendingPositionTableRows()
+            ],
+          ),
+        ],
+      )
     );
   }
 
@@ -1659,7 +1775,8 @@ class _MyHomePageState extends State<MyHomePage> {
         color: Colors.grey[700],
         child: Row(
           children: cells,
-        ));
+        )
+    );
   }
 
   Widget _closedPositionInitRow() {
@@ -1751,9 +1868,11 @@ class _MyHomePageState extends State<MyHomePage> {
       );
     }).toList();
     return Container(
-      child: Column(
+      height: 115,
+      width: 910,
+      child: ListView(
         children: rows,
-      ),
+      )
     );
   }
 
@@ -1781,9 +1900,11 @@ class _MyHomePageState extends State<MyHomePage> {
       );
     }).toList();
     return Container(
-      child: Column(
+      height: 115,
+      width: 840,
+      child: ListView(
         children: rows,
-      ),
+      )
     );
   }
 
@@ -1812,9 +1933,11 @@ class _MyHomePageState extends State<MyHomePage> {
       );
     }).toList();
     return Container(
-      child: Column(
+      height: 115,
+      width: 910,
+      child: ListView(
         children: rows,
-      ),
+      )
     );
   }
 
@@ -1895,7 +2018,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void showDialogModal(String type) {
+  void showDialogModal(String type) async{
     print("press show $type dialog");
     Widget simpleDialog;
     if (type == "Deposit") {
@@ -1916,18 +2039,18 @@ class _MyHomePageState extends State<MyHomePage> {
     if (type == "Profile management") {
       simpleDialog = ProfileModal();
     }
-    if (type == "CreateOrder") {
-      simpleDialog = OrderModal();
-    }
-    showDialog(
-        context: context, builder: (BuildContext context) => simpleDialog);
+    await showDialog(
+      context: context, builder: (BuildContext context) => simpleDialog
+    );
   }
 }
 
 class OrderModal extends StatefulWidget {
-  OrderModal({Key key, this.title}) : super(key: key);
+  OrderModal({Key key, this.title, this.isOpen, this.close}) : super(key: key);
 
   final String title;
+  final bool isOpen;
+  final Function close;
 
   @override
   _OrderModalState createState() => _OrderModalState();
@@ -1942,181 +2065,205 @@ class _OrderModalState extends State<OrderModal> {
   bool isClickMeClicked = false;
   String selectedOrderType = "Market order";
 
+
+
   @override
   Widget build(BuildContext context) {
     return _createOrderDialog();
   }
 
   Widget _createOrderDialog() {
-    return Dialog(
-        backgroundColor: Colors.blueGrey[700],
-        // shape: RoundedRectangleBorder(
-        //   borderRadius: BorderRadius.circular(12.0),
-        // ),
-        child: Container(
-          height: isAdvance ? 400.0 : 170,
-          child: ListView(
-            children: <Widget>[
-              Container(
-                  height: isAdvance ? 400.0 : 170,
-                  width: 500.0,
-                  child: Padding(
-                      padding: EdgeInsets.all(15.0),
-                      child: Column(
+    return  Container(
+      margin: EdgeInsets.only(
+        top: 100, 
+        right: 40,
+        left: 40
+      ),
+      color: Colors.grey[700],
+      height: isAdvance ? 350.0 : 170,
+      width: 300,
+      child: ListView(
+        children: <Widget>[
+          Container(
+              height: isAdvance ? 350.0 : 170,
+              width: 500.0,
+              child: Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Text(pair,
+                          Expanded(
+                            child: Text(pair,
                               style:
-                                  TextStyle(color: Colors.white, fontSize: 12)),
-                          Container(
-                              margin: EdgeInsetsDirectional.only(top: 10.0),
-                              height: 30,
-                              width: 250,
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Colors.green, width: 0.5)),
-                              child: FlatButton(
-                                onPressed: () {
-                                  // TODO implement callback
-                                  print("press create order advance");
-                                  setState(() {
-                                    isAdvance = !isAdvance;
-                                  });
-                                },
-                                child: Text("Advance",
-                                    style: TextStyle(
-                                      color: Colors.green,
-                                    )),
-                              )),
-                          isAdvance ? _advanceView() : Container(),
-                          Container(
-                            height: 30,
-                            width: 250,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Container(
-                                  width: 60,
-                                  color: Colors.red,
-                                  child: FlatButton(
-                                      onPressed: () {
-                                        // TODO implement callback
-                                        print("press Sell");
-                                      },
-                                      child: Text(
-                                        "Sell",
-                                        style: TextStyle(color: Colors.white),
-                                      )),
-                                ),
-                                Container(
-                                  width: 130,
-                                  child: TextField(
-                                    keyboardType: TextInputType.number,
-                                    onChanged: (String text) {
-                                      print("create order text input");
-                                    },
-                                    style: TextStyle(color: Colors.white),
-                                    decoration: InputDecoration(
-                                      prefixIcon: IconButton(
-                                        padding: EdgeInsets.zero,
-                                        icon: Icon(
-                                          MaterialCommunityIcons.minus,
-                                          color: Colors.white,
-                                          size: 12,
-                                        ),
-                                        onPressed: () {
-                                          // TODO implement callback
-                                          print("press create order minus");
-                                        },
-                                      ),
-                                      suffixIcon: IconButton(
-                                        padding: EdgeInsets.zero,
-                                        icon: Icon(
-                                          MaterialCommunityIcons.plus,
-                                          color: Colors.white,
-                                          size: 12,
-                                        ),
-                                        onPressed: () {
-                                          // TODO implement callback
-                                          print("press create order plus");
-                                        },
-                                      ),
-                                      enabledBorder: const OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            color: Colors.grey, width: 0.0),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  width: 60,
-                                  color: Colors.grey[500],
-                                  child: FlatButton(
-                                      onPressed: () {
-                                        // TODO implement callback
-                                        print("press Buy");
-                                      },
-                                      child: Text(
-                                        "Buy",
-                                        style: TextStyle(color: Colors.white),
-                                      )),
-                                )
-                              ],
+                              TextStyle(color: Colors.white, fontSize: 12)
                             ),
                           ),
                           Container(
-                            height: 30,
-                            width: 250,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Container(
-                                  width: 123,
-                                  color: Colors.grey[800],
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: <Widget>[
-                                      Icon(
-                                          isRising
-                                              ? Icons.arrow_upward
-                                              : Icons.arrow_downward,
-                                          color: isRising
-                                              ? Colors.green
-                                              : Colors.red),
-                                      Text(changeAmount,
-                                          style:
-                                              TextStyle(color: Colors.white)),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  width: 123,
-                                  color: Colors.grey[800],
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: <Widget>[
-                                      Icon(
-                                          isRising
-                                              ? Icons.arrow_upward
-                                              : Icons.arrow_downward,
-                                          color: isRising
-                                              ? Colors.green
-                                              : Colors.red),
-                                      Text(changeAmount,
-                                          style:
-                                              TextStyle(color: Colors.white)),
-                                    ],
-                                  ),
-                                )
-                              ],
+                            height: 20,
+                            child: IconButton(
+                              padding: EdgeInsets.zero,
+                              icon: Icon(Icons.close),
+                              color: Colors.white, 
+                              iconSize: 16, 
+                              onPressed:(){
+                                widget.close();
+                              } 
                             ),
                           )
                         ],
-                      ))),
-            ],
-          ),
-        ));
+                      ),
+                      Container(
+                          margin: EdgeInsetsDirectional.only(top: 10.0),
+                          height: 30,
+                          width: 250,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Colors.green, width: 0.5)),
+                          child: FlatButton(
+                            onPressed: () {
+                              // TODO implement callback
+                              print("press create order advance");
+                              setState(() {
+                                isAdvance = !isAdvance;
+                              });
+                            },
+                            child: Text("Advance",
+                                style: TextStyle(
+                                  color: Colors.green,
+                                )),
+                          )),
+                      isAdvance ? _advanceView() : Container(),
+                      Container(
+                        height: 30,
+                        width: 250,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Container(
+                              width: 60,
+                              color: Colors.red,
+                              child: FlatButton(
+                                  onPressed: () {
+                                    // TODO implement callback
+                                    print("press Sell");
+                                  },
+                                  child: Text(
+                                    "Sell",
+                                    style: TextStyle(color: Colors.white),
+                                  )),
+                            ),
+                            Container(
+                              width: 130,
+                              child: TextField(
+                                keyboardType: TextInputType.number,
+                                onChanged: (String text) {
+                                  print("create order text input");
+                                },
+                                style: TextStyle(color: Colors.white),
+                                decoration: InputDecoration(
+                                  prefixIcon: IconButton(
+                                    padding: EdgeInsets.zero,
+                                    icon: Icon(
+                                      MaterialCommunityIcons.minus,
+                                      color: Colors.white,
+                                      size: 12,
+                                    ),
+                                    onPressed: () {
+                                      // TODO implement callback
+                                      print("press create order minus");
+                                    },
+                                  ),
+                                  suffixIcon: IconButton(
+                                    padding: EdgeInsets.zero,
+                                    icon: Icon(
+                                      MaterialCommunityIcons.plus,
+                                      color: Colors.white,
+                                      size: 12,
+                                    ),
+                                    onPressed: () {
+                                      // TODO implement callback
+                                      print("press create order plus");
+                                    },
+                                  ),
+                                  enabledBorder: const OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        color: Colors.grey, width: 0.0),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              width: 60,
+                              color: Colors.grey[500],
+                              child: FlatButton(
+                                  onPressed: () {
+                                    // TODO implement callback
+                                    print("press Buy");
+                                  },
+                                  child: Text(
+                                    "Buy",
+                                    style: TextStyle(color: Colors.white),
+                                  )),
+                            )
+                          ],
+                        ),
+                      ),
+                      Container(
+                        height: 30,
+                        width: 250,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Container(
+                              width: 123,
+                              color: Colors.grey[800],
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  Icon(
+                                      isRising
+                                          ? Icons.arrow_upward
+                                          : Icons.arrow_downward,
+                                      color: isRising
+                                          ? Colors.green
+                                          : Colors.red),
+                                  Text(changeAmount,
+                                      style:
+                                          TextStyle(color: Colors.white)),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              width: 123,
+                              color: Colors.grey[800],
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  Icon(
+                                      isRising
+                                          ? Icons.arrow_upward
+                                          : Icons.arrow_downward,
+                                      color: isRising
+                                          ? Colors.green
+                                          : Colors.red),
+                                  Text(changeAmount,
+                                      style:
+                                          TextStyle(color: Colors.white)),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ))),
+        ],
+      ),
+    );
   }
 
   Widget _dropdown() {
@@ -2245,10 +2392,10 @@ class _OrderModalState extends State<OrderModal> {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Container(
-                            color: Colors.blueGrey[700],
+                            // color: Colors.blueGrey[700],
                             child: Text(value,
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: 10)),
+                                    color: Colors.green, fontSize: 10)),
                           ),
                         );
                       }).toList(),
@@ -2616,7 +2763,7 @@ Dialog _withdrawDialog() {
                       style: TextStyle(color: Colors.white, fontSize: 14)),
                   onPressed: () {
                     // TODO implement callback
-                    print("press send message to tech support");
+                    print("press withdrawal");
                   },
                 ),
               )
@@ -3136,6 +3283,7 @@ class DepositDialogState extends State<DepositDialog> {
                         Container(
                           margin: EdgeInsets.only(top: 4.0, bottom: 4.0),
                           width: 180,
+                          // color: Colors.green,
                           child: FormField<String>(
                             builder: (FormFieldState<String> state) {
                               return InputDecorator(
@@ -3168,10 +3316,11 @@ class DepositDialogState extends State<DepositDialog> {
                                       return DropdownMenuItem<String>(
                                         value: value,
                                         child: Container(
-                                          color: Colors.blueGrey[700],
+                                          // padding: EdgeInsets.all(10),
+                                          // color: Colors.blueGrey[700],
                                           child: Text(value,
                                               style: TextStyle(
-                                                  color: Colors.white,
+                                                  color: Colors.green,
                                                   fontSize: 10)),
                                         ),
                                       );
