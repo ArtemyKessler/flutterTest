@@ -10,13 +10,15 @@ import 'package:fluttercryptoui/footerData.dart';
 import 'package:fluttercryptoui/graphicType.dart';
 import 'package:fluttercryptoui/language.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:bidirectional_scroll_view/bidirectional_scroll_view.dart';
 import 'package:fluttercryptoui/openedPosition.dart';
 import 'package:circular_check_box/circular_check_box.dart';
 import 'package:fluttercryptoui/pendingOrders.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
 import 'dart:io';
+import 'package:custom_switch/custom_switch.dart';
+import 'package:custom_switch_button/custom_switch_button.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -702,9 +704,7 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: _appBar(),
         body: ScrollConfiguration(
           behavior: MyBehavior(),
-          child: ListView(children: <Widget>[
-            _body(),
-          ]),
+          child: _body()
         ));
   }
 
@@ -1129,7 +1129,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Stack(
       children: <Widget>[
         Container(
-          height: MediaQuery.of(context).size.height * 0.8733,
+          // height: MediaQuery.of(context).size.height * 0.935,
           color: Colors.grey[600],
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1335,12 +1335,21 @@ class _MyHomePageState extends State<MyHomePage> {
                     option.name,
                     style: TextStyle(color: Colors.white, fontSize: 12),
                   ),
-                  Switch(
-                      value: option.isOn,
-                      onChanged: (bool newIsOn) {
-                        // TODO implement callback
-                        print("press switch");
-                      })
+                  Container(
+                    // height: 20,
+                    // width: 70,
+                    child: CustomSwitch(
+                      activeColor: Colors.green,
+                      value: isReal,
+                      onChanged: (value) {
+                        setState(() {
+                          // TODO implement callback
+                          print("press filter switch");
+                          isReal = value;
+                        });
+                      },
+                    ),
+                  )
                 ],
               ),
             );
@@ -1407,7 +1416,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _orderTop(){
     return isOrderModalOpen ? Container(height: 20,) : Container(
-      height: 20,
+      height: 30,
       width: 350,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1522,10 +1531,10 @@ class _MyHomePageState extends State<MyHomePage> {
       },
     ];
     double windowHeight = MediaQuery.of(context).size.height;
-    return Container(
+    return Expanded(child: Container(
       // margin: EdgeInsets.only(top : 4.0),
       color: Colors.grey[900],
-      height: windowHeight * 0.4,
+      // height: windowHeight * 0.4,
       child: OHLCVGraph(
           data: sampleData,
           enableGridLines: true,
@@ -1533,7 +1542,7 @@ class _MyHomePageState extends State<MyHomePage> {
           gridLineAmount: 5,
           gridLineColor: Colors.grey[300],
           gridLineLabelColor: Colors.grey),
-    );
+    ));
   }
 
   Widget _positionsAndOrders() {
@@ -1669,14 +1678,25 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: isReal ? Colors.white : Colors.yellow, fontSize: 10),
           ),
           Container(
-            child: Checkbox(
-                value: isReal,
-                onChanged: (bool newIsReal) {
-                  print(isReal.toString());
-                  setState(() {
-                    isReal = !isReal;
-                  });
-                }),
+            margin: EdgeInsets.only(left: 5, right: 5),
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  isReal = !isReal;
+                });
+              },
+              child: Center(
+                child: CustomSwitchButton(
+                  buttonWidth: 40,
+                  buttonHeight: 20,
+                  backgroundColor: isReal ? Colors.green : Colors.blueGrey,
+                  unCheckedColor: Colors.grey[400],
+                  animationDuration: Duration(milliseconds: 400),
+                  checkedColor: Colors.white,
+                  checked: isReal,
+                ),
+              ),
+            ),
           ),
           Text(
             "Real",
