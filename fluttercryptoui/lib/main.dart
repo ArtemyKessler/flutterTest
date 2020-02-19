@@ -3229,7 +3229,7 @@ Dialog _educationDialog() {
           padding: EdgeInsets.all(15.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: educationalarticles.map((String name) {
               return Container(
                 height: 30,
